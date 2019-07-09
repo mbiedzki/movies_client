@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-title>Zaloguj się do aplikacji</mat-card-title>
+<div class="login-container" style="width: 50%">
+<mat-form-field>
+  <input matInput placeholder="Nazwa użytkownika">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Hasło" [type]="hide ? 'password' : 'text'">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+</div>
+  <mat-card-actions>
+    <div class="app-button-row">
+      <button mat-raised-button color="primary">Zaloguj</button>
+    </div>
+  </mat-card-actions>
+</mat-card>
