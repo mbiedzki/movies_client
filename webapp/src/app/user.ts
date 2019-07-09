@@ -1,7 +1,9 @@
+import {Role} from "./role";
+
 export class User {
   id: number;
   name: string;
   password: string;
   active: boolean;
-  roles: boolean;
+  roles: Array<Role>;
 }
