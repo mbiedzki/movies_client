@@ -15,16 +15,12 @@ export class UserService {
 
   getUserByName(name: string, password: string): Observable<User> {
     const url = `${this.usersByNameUrl}${name}`;
-    console.warn(name);
-    console.warn(password);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Authorization': 'Basic' + btoa(name + ':' + password)
+        'Authorization': 'Basic ' + btoa(name + ':' + password)
       })
     };
-    console.warn(name + ':' + password)
-    console.warn(btoa(name + ':' + password))
     return this.http.get<User>(url, httpOptions).pipe(
       catchError(this.handleError<User>(`getUserByName name=${name}`))
     );

@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
   getUser(name: string, password: string): void {
     this.userService.getUserByName(name, password)
       .subscribe(user => this.user = user);
-
   }
 
 }

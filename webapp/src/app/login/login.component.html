@@ -4,7 +4,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <label><input matInput type="text" formControlName="name" placeholder="Nazwa użytkownika"></label>
-      </mat-form-field>
+      </mat-form-field><br/>
       <mat-form-field>
           <label><input matInput formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'"></label>
         <button mat-icon-button matSuffix (click)="hide = !hide">
@@ -19,3 +19,4 @@
     </form>
   </div>
 </mat-card>
+
