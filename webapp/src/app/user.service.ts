@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, tap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {User} from "./user";
+import {GlobalObjects} from "./global-objects";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,10 +12,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private usersByNameUrl = 'http://localhost:8080/users?name='; // URL to web api
+
+  saveLoggedInUser(user: User) {
+    this.globalObjects.loggedUser = user;
+  }
 
   getUserByName(name: string, password: string): Observable<User> {
-    const url = `${this.usersByNameUrl}${name}`;
+    const url = `${this.globalObjects.usersByNameUrl}${name}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -31,10 +35,9 @@ export class UserService {
       console.error(error); // log error to console
       // Returning an empty result.
       return of(result as T);
-
     };
   }
   constructor(
-    private http: HttpClient,
+    private http: HttpClient, private globalObjects: GlobalObjects
   ) { }
 }

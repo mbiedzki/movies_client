@@ -1,11 +1,12 @@
-<mat-card>
+<app-header></app-header>
+<div >
+<mat-card style="text-align: center;">
   <mat-card-title>Zaloguj się do aplikacji</mat-card-title>
-  <div class="login-container" style="width: 50%">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
+      <mat-form-field style="width: 30%">
         <label><input matInput type="text" formControlName="name" placeholder="Nazwa użytkownika"></label>
       </mat-form-field><br/>
-      <mat-form-field>
+      <mat-form-field style="width: 30%">
           <label><input matInput formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'"></label>
         <button mat-icon-button matSuffix (click)="hide = !hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -17,6 +18,6 @@
         </div>
       </mat-card-actions>
     </form>
-  </div>
 </mat-card>
+</div>
 

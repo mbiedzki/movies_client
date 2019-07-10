@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalObjects} from "../global-objects";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class MainPageComponent implements OnInit {
 
   constructor(
     private globalObjects: GlobalObjects,

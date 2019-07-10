@@ -2,17 +2,19 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../user";
 import {UserService} from "../user.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {GlobalObjects} from "../global-objects";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  user: User;
   userName: string;
   userPassword: string;
+  parsedUser: User;
   loginForm = new FormGroup(
     {
     name: new FormControl(),
@@ -20,21 +22,22 @@ export class LoginComponent implements OnInit {
     });
 
   constructor(
-    private userService: UserService
+    private userService: UserService, private globalObjects: GlobalObjects, private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.userName = this.loginForm.get('name').value;
     this.userPassword = this.loginForm.get('password').value;
-    this.getUser(this.userName, this.userPassword);
+    this.parsedUser = await this.getUser(this.userName, this.userPassword);
+    this.globalObjects.loggedUser = JSON.parse(JSON.stringify(this.parsedUser));
+    this.router.navigateByUrl('main')
   }
 
-  getUser(name: string, password: string): void {
-    this.userService.getUserByName(name, password)
-      .subscribe(user => this.user = user);
+  async getUser(name: string, password: string): Promise<User> {
+    return await this.userService.getUserByName(name, password).toPromise();
   }
 
 }

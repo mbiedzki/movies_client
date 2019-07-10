@@ -11,17 +11,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIcon, MatInputModule, MatButtonModule, MatCardModule} from "@angular/material";
 
-import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    MenuComponent,
     LoginComponent,
     MatIcon,
+    MainPageComponent,
   ],
   imports: [
     BrowserModule,
