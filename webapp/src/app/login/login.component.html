@@ -1,11 +1,11 @@
 <app-header></app-header>
 <div >
 <mat-card style="text-align: center;">
-  <mat-card-title>Zaloguj się do aplikacji</mat-card-title>
+  <mat-card-title>Zaloguj się do aplikacji</mat-card-title><br/><br/>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field style="width: 30%">
         <label><input matInput type="text" formControlName="name" placeholder="Nazwa użytkownika"></label>
-      </mat-form-field><br/>
+      </mat-form-field><br/><br/>
       <mat-form-field style="width: 30%">
           <label><input matInput formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'"></label>
         <button mat-icon-button matSuffix (click)="hide = !hide">
@@ -14,7 +14,8 @@
       </mat-form-field>
       <mat-card-actions>
         <div class="app-button-row">
-          <button type="submit" mat-raised-button color="primary">Zaloguj</button>
+          <button type="submit" mat-raised-button color="primary">Zaloguj</button><br/><br/>
+          <mat-error *ngIf="this.globalObjects.loginError">{{this.globalObjects.globalMessage}}</mat-error>
         </div>
       </mat-card-actions>
     </form>

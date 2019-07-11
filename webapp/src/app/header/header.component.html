@@ -8,5 +8,7 @@
 <mat-toolbar>
   <mat-toolbar-row>
   <span *ngIf="!this.globalObjects.loggedUser.active==false">Zalogowany użytkownik : {{this.globalObjects.loggedUser.name}}</span>
+    <span class="header-spacer"></span>
+    <button *ngIf="this.globalObjects.loggedUser.id > 0" mat-raised-button color="primary" (click)="this.userService.logOut()">Wyloguj</button>
   </mat-toolbar-row>
 </mat-toolbar>

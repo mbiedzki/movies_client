@@ -33,11 +33,12 @@ export class LoginComponent implements OnInit {
     this.userPassword = this.loginForm.get('password').value;
     this.parsedUser = await this.getUser(this.userName, this.userPassword);
     this.globalObjects.loggedUser = JSON.parse(JSON.stringify(this.parsedUser));
+    this.globalObjects.globalMessage = '';
+    this.globalObjects.loginError = false;
     this.router.navigateByUrl('main')
   }
 
   async getUser(name: string, password: string): Promise<User> {
     return await this.userService.getUserByName(name, password).toPromise();
   }
-
 }

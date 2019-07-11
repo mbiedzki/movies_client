@@ -4,6 +4,7 @@ import {catchError, tap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {User} from "./user";
 import {GlobalObjects} from "./global-objects";
+import {Router} from "@angular/router";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,10 +13,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-
-  saveLoggedInUser(user: User) {
-    this.globalObjects.loggedUser = user;
-  }
 
   getUserByName(name: string, password: string): Observable<User> {
     const url = `${this.globalObjects.usersByNameUrl}${name}`;
@@ -29,15 +26,23 @@ export class UserService {
       catchError(this.handleError<User>(`getUserByName name=${name}`))
     );
   }
-
+  //error handling by returning empty result
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log error to console
+      this.globalObjects.loginError = true;
+      this.globalObjects.sendMessage('Błędna nazwa użytkownika lub hasło');
       // Returning an empty result.
+      console.error(error);
       return of(result as T);
     };
   }
+  logOut() {
+    this.globalObjects.globalMessage = 'Użytkownik został wylogowany'
+    this.globalObjects.loginError = true;
+    this.globalObjects.loggedUser = new User();
+    this.router.navigateByUrl('login')
+  }
   constructor(
-    private http: HttpClient, private globalObjects: GlobalObjects
+    private http: HttpClient, private globalObjects: GlobalObjects, private router: Router
   ) { }
 }
