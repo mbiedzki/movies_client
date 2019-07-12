@@ -11,10 +11,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  //hidden password field
   hide = true;
   userName: string;
   userPassword: string;
-  parsedUser: User;
+  //login form
   loginForm = new FormGroup(
     {
     name: new FormControl(),
@@ -29,16 +30,22 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit() {
+    //get user name and password
     this.userName = this.loginForm.get('name').value;
     this.userPassword = this.loginForm.get('password').value;
-    this.parsedUser = await this.getUser(this.userName, this.userPassword);
-    this.globalObjects.loggedUser = JSON.parse(JSON.stringify(this.parsedUser));
-    this.globalObjects.globalMessage = '';
-    this.globalObjects.loginError = false;
-    this.router.navigateByUrl('main')
-  }
-
-  async getUser(name: string, password: string): Promise<User> {
-    return await this.userService.getUserByName(name, password).toPromise();
+    //get user from server
+    await this.userService.getUserByName(this.userName, this.userPassword).then((receivedUser: User) => {
+      this.globalObjects.loggedUser = receivedUser;
+      //set password for logged user because serves does not send any password
+      this.globalObjects.loggedUser.password = this.userPassword;
+      //mark if user is admin
+      this.globalObjects.isUserAdmin(this.globalObjects.loggedUser);
+      //clear login error if it was unsuccessful during login
+      this.globalObjects.loginError = false;
+      this.router.navigateByUrl('main')
+    }
+   ).catch(() => {
+      this.globalObjects.loginError = true;
+    });
   }
 }

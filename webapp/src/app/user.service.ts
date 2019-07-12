@@ -1,44 +1,27 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, tap} from "rxjs/operators";
-import {Observable, of} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 import {User} from "./user";
 import {GlobalObjects} from "./global-objects";
 import {Router} from "@angular/router";
+import {UserPage} from "./user-page";
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  getUserByName(name: string, password: string): Observable<User> {
-    const url = `${this.globalObjects.usersByNameUrl}${name}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Basic ' + btoa(name + ':' + password)
-      })
-    };
-    return this.http.get<User>(url, httpOptions).pipe(
-      catchError(this.handleError<User>(`getUserByName name=${name}`))
-    );
+  async getUserByName(name: string, password: string): Promise<User> {
+    const url = `${this.globalObjects.userByNameUrl}${name}`;
+    return this.http.get<User>(url, this.globalObjects.createHttpOptions(name, password)).toPromise();
   }
-  //error handling by returning empty result
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.globalObjects.loginError = true;
-      this.globalObjects.sendMessage('Błędna nazwa użytkownika lub hasło');
-      // Returning an empty result.
-      console.error(error);
-      return of(result as T);
-    };
+  async getUsersByParams(name: string, page: number, length: number): Promise<UserPage> {
+    const url = `${this.globalObjects.usersByParamsUrl}?name=${name}&page=${page}&size=${length}`;
+    return this.http.get<UserPage>(url, this.globalObjects.createHttpOptions(this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
+
   logOut() {
-    this.globalObjects.globalMessage = 'Użytkownik został wylogowany'
-    this.globalObjects.loginError = true;
+    this.globalObjects.logout = true;
+    this.globalObjects.isAdmin = false;
     this.globalObjects.loggedUser = new User();
     this.router.navigateByUrl('login')
   }

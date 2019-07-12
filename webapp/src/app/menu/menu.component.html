@@ -1,0 +1,46 @@
+<mat-toolbar>
+
+  <!--  sekcja dla wszystkich-->
+  <button mat-button mat-raised-button [mat-menu-trigger-for]="menuMovies">Filmy</button>
+  <mat-menu #menuMovies="matMenu">
+    <a routerLink="/movies/list" mat-menu-item>Lista</a>
+    <button mat-menu-item>Wyszukaj</button>
+    <button mat-menu-item>Nowy</button>
+  </mat-menu>
+
+  <span class="menu-spacer"></span>
+
+  <button mat-button mat-raised-button [mat-menu-trigger-for]="menuDirectors">Reżyserzy</button>
+  <mat-menu #menuDirectors="matMenu">
+    <button mat-menu-item>Lista</button>
+    <button mat-menu-item>Wyszukaj</button>
+    <button mat-menu-item>Nowy</button>
+  </mat-menu>
+
+  <span class="menu-spacer"></span>
+
+  <button mat-button mat-raised-button [mat-menu-trigger-for]="menuGenres">Gatunki</button>
+  <mat-menu #menuGenres="matMenu">
+    <button mat-menu-item>Lista</button>
+    <button mat-menu-item>Wyszukaj</button>
+    <button mat-menu-item>Nowy</button>
+  </mat-menu>
+
+  <!--  sekcja dla admina-->
+  <span class="menu-spacer"></span>
+<div *ngIf="this.globalObjects.isAdmin">
+    <button mat-button mat-raised-button [mat-menu-trigger-for]="menuUsers">Użytkownicy</button>
+    <mat-menu #menuUsers="matMenu">
+      <button mat-menu-item (click)="this.usersListComponent.getUsersList('', 0, 10, 50)">Lista</button>
+      <button mat-menu-item>Wyszukaj</button>
+      <button mat-menu-item>Nowy</button>
+    </mat-menu>
+</div>
+
+  <!--  sekcja dla wszystkich-->
+  <span class="header-spacer"></span>
+  <button mat-button mat-raised-button *ngIf="this.globalObjects.loggedUser.id > 0"
+    (click)="this.userService.logOut()">Wyloguj: {{this.globalObjects.loggedUser.name}}</button>
+</mat-toolbar>
+
+

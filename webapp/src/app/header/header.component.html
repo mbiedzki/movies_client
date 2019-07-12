@@ -1,14 +1,6 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
 <h1>Aplikacja do zarządzania bazą filmów</h1>
   <span class="header-spacer"></span>
   <span><img width="100" alt="Wasko Logo" src="../assets/logo.png"></span>
-  </mat-toolbar-row>
 </mat-toolbar>
-<mat-toolbar>
-  <mat-toolbar-row>
-  <span *ngIf="!this.globalObjects.loggedUser.active==false">Zalogowany użytkownik : {{this.globalObjects.loggedUser.name}}</span>
-    <span class="header-spacer"></span>
-    <button *ngIf="this.globalObjects.loggedUser.id > 0" mat-raised-button color="primary" (click)="this.userService.logOut()">Wyloguj</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+

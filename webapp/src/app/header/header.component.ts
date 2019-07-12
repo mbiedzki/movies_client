@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../global-objects";
 import {UserService} from "../user.service";
 

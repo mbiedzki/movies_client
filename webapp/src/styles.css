@@ -7,3 +7,6 @@
 .header-spacer {
   flex: 1 1 auto;
 }
+.menu-spacer {
+  flex: 0.01 1 auto ;
+}

@@ -1,0 +1,25 @@
+<app-header></app-header>
+<app-menu></app-menu>
+
+<div class="mat-elevation-z8">
+<mat-table [dataSource]="currentList">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Nazwa użytkownika </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{user.name}} </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+</mat-table>
+  <mat-paginator
+    [length]="this.globalObjects.currentLength"
+    [pageIndex]="this.globalObjects.currentPage"
+    [pageSize]="this.globalObjects.currentSize"
+    [pageSizeOptions]="[1, 10, 20]"
+    (page)="pageEvent = getServerData($event)"
+    showFirstLastButtons></mat-paginator>
+</div>
+
