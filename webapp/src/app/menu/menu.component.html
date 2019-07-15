@@ -31,7 +31,7 @@
 <div *ngIf="this.globalObjects.isAdmin">
     <button mat-button mat-raised-button [mat-menu-trigger-for]="menuUsers">Użytkownicy</button>
     <mat-menu #menuUsers="matMenu">
-      <button mat-menu-item (click)="this.usersListComponent.getUsersList('', 0, 10, 50)">Lista</button>
+      <a routerLink="/users/list" mat-menu-item>Lista</a>
       <button mat-menu-item>Wyszukaj</button>
       <button mat-menu-item>Nowy</button>
     </mat-menu>

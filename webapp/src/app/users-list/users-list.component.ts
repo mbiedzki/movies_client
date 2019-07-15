@@ -28,6 +28,7 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getUsersList('', 0, 10)
   }
 
   async getUsersList(name: string, page: number, size: number) {
