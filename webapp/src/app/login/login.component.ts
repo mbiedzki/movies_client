@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit {
       //set password for logged user because serves does not send any password
       this.globalObjects.loggedUser.password = this.userPassword;
       //mark if user is admin
-      this.globalObjects.isUserAdmin(this.globalObjects.loggedUser);
+      if(this.globalObjects.isUserAdmin(receivedUser)) {
+        this.globalObjects.isAdmin = true;
+      }
       //clear login error if it was unsuccessful during login
       this.globalObjects.loginError = false;
       this.router.navigateByUrl('main')

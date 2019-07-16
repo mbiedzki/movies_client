@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   PageEvent, MatIcon, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
   MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule, MatCheckboxModule,
+  MatSnackBarModule,
 } from "@angular/material";
 
 import { LoginComponent } from './login/login.component';
@@ -56,6 +57,7 @@ import { UsersDetailsComponent } from './users/users-details/users-details.compo
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatSnackBarModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

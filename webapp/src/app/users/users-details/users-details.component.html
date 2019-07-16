@@ -6,11 +6,7 @@
 
     <mat-card-title>Dane użytkownika</mat-card-title><br/><br/>
 
-    <form [formGroup]="userForm" (ngSubmit)="saveUser()">
-
-      <mat-form-field style="width: 30%" *ngIf="this.user.id != null">
-        <label><input matInput #id type="text" formControlName="id" placeholder="Id" readonly></label>
-      </mat-form-field><br/><br/>
+    <form [formGroup]="userForm">
 
       <mat-form-field style="width: 30%">
         <label><input matInput #name type="text" formControlName="name" required placeholder="Nazwa użytkownika"></label>
@@ -23,16 +19,21 @@
         <mat-error *ngIf="password.value.length < 4">Minimum 4 znaki !</mat-error>
       </mat-form-field><br/><br/><br/>
 
-      <mat-checkbox #active formControlName="active">Aktywny</mat-checkbox><br/><br/>
+      <mat-toolbar-row style="justify-content: center">
+      <mat-checkbox #active formControlName="active">Aktywny</mat-checkbox>
+      <span class="menu-spacer"></span>
+      <mat-checkbox #isAdmin formControlName="isAdmin">Administrator</mat-checkbox><br/><br/>
+      </mat-toolbar-row>
 
       <mat-card-actions>
           <button mat-raised-button (click)="saveUser()" color="primary">Zapisz</button>
-          <span class="menu-spacer"></span>
+          <span class="checkbox-spacer"></span>
           <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserById()" color="primary">Usuń</button><br/><br/>
       </mat-card-actions>
       <mat-card-footer style="color: blue">
         <p *ngIf="this.globalObjects.updateSuccessful"> Użytkownik został zapisany</p>
         <p *ngIf="this.globalObjects.deleteSuccessful"> Użytkownik został usunięty</p>
+        <p style="color: crimson" *ngIf="this.globalObjects.serverError"> Błąd serwera</p>
       </mat-card-footer>
     </form>
   </mat-card>

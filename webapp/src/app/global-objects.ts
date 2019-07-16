@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {User} from "./users/user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material";
 
 @Injectable({
     providedIn: 'root'
@@ -16,13 +17,16 @@ export class GlobalObjects {
   //global logged user objects
   loggedUser: User = new User();
   isAdmin: boolean;
+  result: boolean;
 
   isUserAdmin(user: User) {
+    this.result = false;
     user.roles.forEach(role => {
       if (role.role == 'ROLE_ADMIN') {
-        this.isAdmin = true;
+        this.result = true;
       }
     });
+    return this.result;
   }
 
   //global params
@@ -36,7 +40,7 @@ export class GlobalObjects {
   currentLength: number;
 
   //global function to clear flags
-  clearFlags() {
+  public clearFlags() {
     this.loginError = false;
     this.logout = false;
     this.serverError =  false;
@@ -45,7 +49,7 @@ export class GlobalObjects {
   }
 
   //global function to create http headers for basic auth
-  createHttpOptions(name: string, password: string) {
+  public createHttpOptions(name: string, password: string) {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -53,7 +57,15 @@ export class GlobalObjects {
       })
     }
   }
+
+  public openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   constructor(
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar,
   ) { }
 }
