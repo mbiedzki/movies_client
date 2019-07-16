@@ -3,17 +3,22 @@
 
 <div class="mat-elevation-z8">
 <mat-table [dataSource]="currentList">
+
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
     <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Nazwa użytkownika </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.name}} </mat-cell>
+    <mat-cell *matCellDef="let user"> {{user.name}}</mat-cell>
   </ng-container>
+
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+  <mat-row *matRowDef="let user; columns: columnsToDisplay" [routerLink]="'/users/details/'+user.id" class="mat-row-link"></mat-row>
+
 </mat-table>
+
   <mat-paginator
     [length]="this.globalObjects.currentLength"
     [pageIndex]="this.globalObjects.currentPage"

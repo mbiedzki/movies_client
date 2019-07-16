@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../global-objects";
-import {UserService} from "../user.service";
+import {UserService} from "../users/user.service";
 
 @Component({
   selector: 'app-header',

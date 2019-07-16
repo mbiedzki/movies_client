@@ -32,8 +32,7 @@
     <button mat-button mat-raised-button [mat-menu-trigger-for]="menuUsers">Użytkownicy</button>
     <mat-menu #menuUsers="matMenu">
       <a routerLink="/users/list" mat-menu-item>Lista</a>
-      <button mat-menu-item>Wyszukaj</button>
-      <button mat-menu-item>Nowy</button>
+      <a routerLink="/users/details" mat-menu-item>Nowy</a>
     </mat-menu>
 </div>
 

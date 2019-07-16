@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {User} from "./user";
+import {User} from "./users/user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 
@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 export class GlobalObjects {
   //urls
   readonly userByNameUrl = 'http://localhost:8080/users/findOne?name=';
+  readonly userByIdUrl = 'http://localhost:8080/users/';
   readonly usersByParamsUrl = 'http://localhost:8080/users';
 
   //global logged user objects
@@ -28,20 +29,17 @@ export class GlobalObjects {
   loginError: boolean;
   logout: boolean;
   serverError: boolean;
+  updateSuccessful: boolean
   currentPage: number;
   currentSize: number;
   currentLength: number;
 
-  //global message object
-  globalMessage: string;
-
-  //global messages function
-  sendMessage(text) {
-    return this.globalMessage = text;
-  }
-
-  clearMessage() {
-    return this.globalMessage = '';
+  //global function to clear flags
+  clearFlags() {
+    this.loginError = false;
+    this.logout = false;
+    this.serverError =  false;
+    this.updateSuccessful = false;
   }
 
   //global function to create http headers for basic auth

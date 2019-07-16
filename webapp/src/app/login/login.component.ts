@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../user";
-import {UserService} from "../user.service";
+import {User} from "../users/user";
+import {UserService} from "../users/user.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {GlobalObjects} from "../global-objects";
 import {Router} from "@angular/router";
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('main')
     }
    ).catch(() => {
+      this.globalObjects.clearFlags();
       this.globalObjects.loginError = true;
     });
   }

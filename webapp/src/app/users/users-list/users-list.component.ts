@@ -1,9 +1,9 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {User} from "../user";
 import {UserService} from "../user.service";
-import {GlobalObjects} from "../global-objects";
+import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
-import {PageEvent} from "@angular/material";
+import {MatPaginator, MatSort, PageEvent} from "@angular/material";
 import {UserPage} from "../user-page";
 
 @Injectable({

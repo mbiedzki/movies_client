@@ -11,7 +11,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   PageEvent, MatIcon, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
-  MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule,
+  MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule, MatCheckboxModule,
 } from "@angular/material";
 
 import { LoginComponent } from './login/login.component';
@@ -19,9 +19,10 @@ import { HeaderComponent } from './header/header.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import {HttpInterceptorService} from "./http-services/http-interceptor.service";
 import { MenuComponent } from './menu/menu.component';
-import { MoviesListComponent } from './movies-list/movies-list.component';
-import { MoviesDetailsComponent } from './movies-details/movies-details.component';
-import { UsersListComponent } from './users-list/users-list.component';
+import { MoviesListComponent } from './movies/movies-list/movies-list.component';
+import { MoviesDetailsComponent } from './movies/movies-details/movies-details.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { UsersDetailsComponent } from './users/users-details/users-details.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UsersListComponent } from './users-list/users-list.component';
     MoviesListComponent,
     MoviesDetailsComponent,
     UsersListComponent,
+    UsersDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { UsersListComponent } from './users-list/users-list.component';
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatCheckboxModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

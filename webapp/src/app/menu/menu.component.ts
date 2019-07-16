@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalObjects} from "../global-objects";
-import {UserService} from "../user.service";
-import {UsersListComponent} from "../users-list/users-list.component";
+import {UserService} from "../users/user.service";
+import {UsersListComponent} from "../users/users-list/users-list.component";
 
 @Component({
   selector: 'app-menu',
