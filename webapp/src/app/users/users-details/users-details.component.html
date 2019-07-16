@@ -9,7 +9,7 @@
     <form [formGroup]="userForm" (ngSubmit)="saveUser()">
 
       <mat-form-field style="width: 30%" *ngIf="this.user.id != null">
-        <label><input matInput type="text" formControlName="id" placeholder="Id" readonly></label>
+        <label><input matInput #id type="text" formControlName="id" placeholder="Id" readonly></label>
       </mat-form-field><br/><br/>
 
       <mat-form-field style="width: 30%">
@@ -26,13 +26,14 @@
       <mat-checkbox #active formControlName="active">Aktywny</mat-checkbox><br/><br/>
 
       <mat-card-actions>
-        <div class="app-button-row">
-          <button type="submit" mat-raised-button color="primary">Zapisz</button><br/><br/>
-          <mat-error *ngIf="this.globalObjects.updateSuccessful"> Użytkownik został zapisany</mat-error>
-        </div>
+          <button mat-raised-button (click)="saveUser()" color="primary">Zapisz</button>
+          <span class="menu-spacer"></span>
+          <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserById()" color="primary">Usuń</button><br/><br/>
       </mat-card-actions>
-
+      <mat-card-footer style="color: blue">
+        <p *ngIf="this.globalObjects.updateSuccessful"> Użytkownik został zapisany</p>
+        <p *ngIf="this.globalObjects.deleteSuccessful"> Użytkownik został usunięty</p>
+      </mat-card-footer>
     </form>
-
   </mat-card>
 

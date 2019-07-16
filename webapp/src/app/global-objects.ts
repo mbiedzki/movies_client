@@ -30,6 +30,7 @@ export class GlobalObjects {
   logout: boolean;
   serverError: boolean;
   updateSuccessful: boolean
+  deleteSuccessful: boolean
   currentPage: number;
   currentSize: number;
   currentLength: number;
@@ -40,6 +41,7 @@ export class GlobalObjects {
     this.logout = false;
     this.serverError =  false;
     this.updateSuccessful = false;
+    this.deleteSuccessful = false;
   }
 
   //global function to create http headers for basic auth

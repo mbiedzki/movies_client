@@ -22,10 +22,12 @@
         <div class="app-button-row">
           <button type="submit" mat-raised-button color="primary">Zaloguj</button><br/><br/>
           <mat-error *ngIf="this.globalObjects.loginError"> Błędna nazwa użytkownika lub hasło !</mat-error>
-          <mat-error *ngIf="this.globalObjects.logout"> Użytkownik został wylogowany</mat-error>
         </div>
       </mat-card-actions>
     </form>
+  <mat-card-footer style="color: blue">
+    <p *ngIf="this.globalObjects.logout"> Użytkownik został wylogowany</p>
+  </mat-card-footer>
 
 </mat-card>
 </div>

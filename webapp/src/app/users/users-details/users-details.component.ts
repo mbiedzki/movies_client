@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {User} from "../user";
 import {UserService} from "../user.service";
 import {GlobalObjects} from "../../global-objects";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-users-details',
@@ -30,6 +30,15 @@ export class UsersDetailsComponent implements OnInit {
         this.userForm.get('id').setValue(this.user.id);
         this.userForm.get('name').setValue(this.user.name);
         this.userForm.get('active').setValue(this.user.active);
+      }
+    ).catch(() => {
+      this.globalObjects.serverError = true;
+    });
+  }
+  async deleteUserById() {
+    await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
+       console.warn(receivedObject);
+      this.globalObjects.deleteSuccessful = true;
       }
     ).catch(() => {
       this.globalObjects.serverError = true;
@@ -70,14 +79,19 @@ export class UsersDetailsComponent implements OnInit {
         this.globalObjects.serverError = true;
       });
     }
+    this.router.navigateByUrl('/users/details/'+this.user.id)
   }
 
   constructor(
-    private userService: UserService, private globalObjects: GlobalObjects, private route: ActivatedRoute,
+    private userService: UserService,
+    private globalObjects: GlobalObjects,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
+    this.globalObjects.clearFlags();
     let id = this.route.snapshot.paramMap.get('id');
     if(id != null) {
       this.getUserById(id);
