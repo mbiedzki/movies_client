@@ -44,8 +44,8 @@ export class UserService {
     this.globalObjects.isAdmin = false;
     this.globalObjects.loggedUser = new User();
     this.globalObjects.clearFlags();
-    this.globalObjects.logout = true;
     this.router.navigateByUrl('login')
+    this.globalObjects.openSnackBar('Użytkownik został wylogowany', '')
   }
   constructor(
     private http: HttpClient, private globalObjects: GlobalObjects, private router: Router

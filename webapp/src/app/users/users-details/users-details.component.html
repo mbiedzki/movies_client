@@ -10,14 +10,16 @@
 
       <mat-form-field style="width: 30%">
         <input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher" placeholder="Nazwa użytkownika">
-        <mat-error *ngIf="userForm.controls['name'].hasError('required')">Pole nie może być puste !</mat-error>
-        <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')">Ta nazwa nie może być użyta !</mat-error>
+        <mat-error *ngIf="userForm.controls['name'].hasError('required')&&(this.isNew)">Pole nie może być puste !</mat-error>
+        <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')&&(this.isNew)">Ta nazwa nie może być użyta !</mat-error>
       </mat-form-field><br/><br/>
 
       <mat-form-field style="width: 30%">
         <input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher" placeholder="Nowe hasło">
-        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">Minimum 4 znaki !</mat-error>
-        <mat-error *ngIf="userForm.controls['password'].hasError('required')">Pole nie może być puste !</mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(this.isNew)">Pole nie może być puste !</mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków bez zmiany hasła!</mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(this.isNew)">Minimum 4 znaki</mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków bez zmiany hasła!</mat-error>
       </mat-form-field><br/><br/><br/>
 
       <mat-toolbar-row style="justify-content: center">
@@ -27,13 +29,11 @@
       </mat-toolbar-row>
 
       <mat-card-actions>
-          <button mat-raised-button [disabled]="(!userForm.valid)"(click)="saveUser()" color="primary">Zapisz</button>
+          <button mat-raised-button [disabled]="(!userForm.valid)&&(this.isNew)"(click)="saveUser()" color="primary">Zapisz</button>
           <span class="checkbox-spacer"></span>
           <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserById()" color="primary">Usuń</button><br/><br/>
       </mat-card-actions>
       <mat-card-footer style="color: blue">
-        <p *ngIf="this.globalObjects.updateSuccessful"> Użytkownik został zapisany</p>
-        <p *ngIf="this.globalObjects.deleteSuccessful"> Użytkownik został usunięty</p>
         <p style="color: crimson" *ngIf="this.globalObjects.serverError"> Błąd serwera</p>
       </mat-card-footer>
     </form>

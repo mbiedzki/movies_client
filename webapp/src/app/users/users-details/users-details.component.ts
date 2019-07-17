@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
-  FormGroupDirective, NG_VALIDATORS,
+  FormGroupDirective,
   NgForm,
-  ValidatorFn,
   Validators
 } from "@angular/forms";
 import {User} from "../user";
@@ -15,15 +13,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../role";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material";
 import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
-import {UsersListComponent} from "../users-list/users-list.component";
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import {UserPage} from "../user-page";
+import {MyErrorStateMatcher} from "../../validators/my-error-state-matcher";
 
 @Component({
   selector: 'app-users-details',
@@ -39,7 +30,7 @@ export class UsersDetailsComponent implements OnInit {
     {
       name: new FormControl('', [
         Validators.required,
-        forbiddenNameValidator(['admin', 'user']),
+        forbiddenNameValidator(this.globalObjects.usersInDb),
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -53,8 +44,6 @@ export class UsersDetailsComponent implements OnInit {
   user: User = new User();
   isNew: boolean = false;
   roleToBeAdded: Role = new Role();
-  idToBeFound: number;
-
 
   async getUserById(id: string) {
     await this.userService.getUserById(id).then((receivedUser: User) => {
@@ -69,14 +58,20 @@ export class UsersDetailsComponent implements OnInit {
   }
 
   async deleteUserById() {
-    await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
-        this.globalObjects.clearFlags();
-        this.globalObjects.deleteSuccessful = true;
-        this.router.navigateByUrl('/main')
-      }
-    ).catch(() => {
-      this.globalObjects.serverError = true;
-    });
+    if(confirm('Czy chcesz usunąć użytkownika : ' + this.user.name)) {
+      await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
+          this.globalObjects.clearFlags();
+          this.globalObjects.openSnackBar('Użytkownik został usunięty', this.user.name);
+          this.router.navigateByUrl('/users/list')
+        }
+      ).catch(() => {
+        this.globalObjects.serverError = true;
+      });
+    } else {
+
+    }
+    await this.getCurrentUsersNames();
+    this.userForm.updateValueAndValidity();
   }
 
   async saveUser() {
@@ -127,7 +122,7 @@ export class UsersDetailsComponent implements OnInit {
 
     this.router.navigateByUrl('/users/details/' + this.user.id);
     this.globalObjects.clearFlags();
-    this.globalObjects.updateSuccessful = true;
+    this.globalObjects.openSnackBar('Użytkownik został zapisany', this.user.name)
   }
 
   addUserRole() {
@@ -156,20 +151,39 @@ export class UsersDetailsComponent implements OnInit {
       passwordControl.setValidators([Validators.minLength(4)]);
     }
   }
+    async getCurrentUsersNames() {
+      //get size of users table from server
+      await this.userService.getUsersByParams('', 0, 10).then((receivedUserPage: UserPage) => {
+          //set current page and size
+          this.globalObjects.currentLength = receivedUserPage.totalPages;
+        }
+      ).catch(() => {
+        this.globalObjects.serverError = true;
+      });
+      //get all users
+      await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedUserPage: UserPage) => {
+          //write to array of users
+        this.globalObjects.usersInDb = receivedUserPage.content;
+        }
+      ).catch(() => {
+        this.globalObjects.serverError = true;
+      });
+    }
 
   constructor(
     private userService: UserService,
     private globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
-    private usersListComponent: UsersListComponent,
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.getCurrentUsersNames();
+    this.userForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
-      this.getUserById(id);
+      await this.getUserById(id);
       this.isNew = false;
       this.setUserValidators();
     } else {
