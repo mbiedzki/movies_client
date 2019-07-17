@@ -18,7 +18,7 @@ import {UserPage} from "../user-page";
 export class UsersListComponent implements OnInit {
   pageEvent: PageEvent;
 
-  private currentList: Array<User>;
+  public currentList: Array<User>;
   columnsToDisplay: string[] = ['id', 'name'];
 
   constructor(
@@ -28,6 +28,7 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.globalObjects.clearFlags();
     this.getUsersList('', 0, 10)
   }
 

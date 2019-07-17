@@ -24,6 +24,8 @@ import { MoviesListComponent } from './movies/movies-list/movies-list.component'
 import { MoviesDetailsComponent } from './movies/movies-details/movies-details.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersDetailsComponent } from './users/users-details/users-details.component';
+import {ForbiddenValidatorDirective} from "./validators/forbidden-name-directive";
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { UsersDetailsComponent } from './users/users-details/users-details.compo
     MoviesDetailsComponent,
     UsersListComponent,
     UsersDetailsComponent,
+    ForbiddenValidatorDirective,
+
   ],
   imports: [
     BrowserModule,

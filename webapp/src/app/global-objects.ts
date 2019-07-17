@@ -29,6 +29,9 @@ export class GlobalObjects {
     return this.result;
   }
 
+  //global tables
+  usersInDb: Array<User> = new Array<User>();
+
   //global params
   loginError: boolean;
   logout: boolean;

@@ -9,14 +9,15 @@
     <form [formGroup]="userForm">
 
       <mat-form-field style="width: 30%">
-        <label><input matInput #name type="text" formControlName="name" required placeholder="Nazwa użytkownika"></label>
-        <mat-error *ngIf="name.value=='' && this.isNew==true">Pole nie może być puste !</mat-error>
+        <input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher" placeholder="Nazwa użytkownika">
+        <mat-error *ngIf="userForm.controls['name'].hasError('required')">Pole nie może być puste !</mat-error>
+        <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')">Ta nazwa nie może być użyta !</mat-error>
       </mat-form-field><br/><br/>
 
       <mat-form-field style="width: 30%">
-        <label><input matInput #password type="text" formControlName="password" placeholder="Nowe hasło"></label>
-        <mat-hint align="start">Minimum 4 znaki</mat-hint>
-        <mat-error *ngIf="password.value.length < 4">Minimum 4 znaki !</mat-error>
+        <input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher" placeholder="Nowe hasło">
+        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">Minimum 4 znaki !</mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('required')">Pole nie może być puste !</mat-error>
       </mat-form-field><br/><br/><br/>
 
       <mat-toolbar-row style="justify-content: center">
@@ -26,7 +27,7 @@
       </mat-toolbar-row>
 
       <mat-card-actions>
-          <button mat-raised-button (click)="saveUser()" color="primary">Zapisz</button>
+          <button mat-raised-button [disabled]="(!userForm.valid)"(click)="saveUser()" color="primary">Zapisz</button>
           <span class="checkbox-spacer"></span>
           <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserById()" color="primary">Usuń</button><br/><br/>
       </mat-card-actions>
