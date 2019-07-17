@@ -1,0 +1,35 @@
+<app-header></app-header>
+<app-menu></app-menu>
+
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="currentList" matSort (matSortChange)="getNewSortData($event)">
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tytuł </mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.title}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="directorLastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Reżyser </mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.director.lastName}} {{movie.director.firstName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Rok produkcji </mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.year}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let movie; columns: columnsToDisplay" [routerLink]="'/movies/details/'+movie.id" class="mat-row-link"></mat-row>
+
+  </mat-table>
+
+  <mat-paginator
+    [length]="this.globalObjects.currentLength"
+    [pageIndex]="this.globalObjects.currentPage"
+    [pageSize]="this.globalObjects.currentSize"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="getNewPageData($event)"
+    showFirstLastButtons></mat-paginator>
+</div>
+

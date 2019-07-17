@@ -45,7 +45,7 @@ export class UsersDetailsComponent implements OnInit {
   isNew: boolean = false;
   roleToBeAdded: Role = new Role();
 
-  async getUserById(id: string) {
+  async getUserById(id: number) {
     await this.userService.getUserById(id).then((receivedUser: User) => {
         this.user = receivedUser;
         this.userForm.get('name').setValue(this.user.name);
@@ -183,7 +183,7 @@ export class UsersDetailsComponent implements OnInit {
     this.userForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
-      await this.getUserById(id);
+      await this.getUserById(parseInt(id));
       this.isNew = false;
       this.setUserValidators();
     } else {

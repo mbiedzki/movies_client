@@ -4,26 +4,23 @@
   <button mat-button mat-raised-button [mat-menu-trigger-for]="menuMovies">Filmy</button>
   <mat-menu #menuMovies="matMenu">
     <a routerLink="/movies/list" mat-menu-item>Lista</a>
-    <button mat-menu-item>Wyszukaj</button>
-    <button mat-menu-item>Nowy</button>
+    <a routerLink="/movies/details" mat-menu-item>Nowy</a>
   </mat-menu>
 
   <span class="menu-spacer"></span>
 
   <button mat-button mat-raised-button [mat-menu-trigger-for]="menuDirectors">Reżyserzy</button>
   <mat-menu #menuDirectors="matMenu">
-    <button mat-menu-item>Lista</button>
-    <button mat-menu-item>Wyszukaj</button>
-    <button mat-menu-item>Nowy</button>
+    <a routerLink="/directors/list" mat-menu-item>Lista</a>
+    <a routerLink="/directors/details" mat-menu-item>Nowy</a>
   </mat-menu>
 
   <span class="menu-spacer"></span>
 
   <button mat-button mat-raised-button [mat-menu-trigger-for]="menuGenres">Gatunki</button>
   <mat-menu #menuGenres="matMenu">
-    <button mat-menu-item>Lista</button>
-    <button mat-menu-item>Wyszukaj</button>
-    <button mat-menu-item>Nowy</button>
+    <a routerLink="/genres/list" mat-menu-item>Lista</a>
+    <a routerLink="/genres/details" mat-menu-item>Nowy</a>
   </mat-menu>
 
   <!--  sekcja dla admina-->

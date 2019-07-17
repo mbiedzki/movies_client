@@ -14,7 +14,7 @@ export class UserService {
     const url = `${this.globalObjects.userByNameUrl}${name}`;
     return this.http.get<User>(url, this.globalObjects.createHttpOptions(name, password)).toPromise();
   }
-  async getUserById(id: string): Promise<User> {
+  async getUserById(id: number): Promise<User> {
     const url = `${this.globalObjects.userByIdUrl}${id}`;
     return this.http.get<User>(url, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
@@ -34,8 +34,8 @@ export class UserService {
     return this.http.post<User>(url, user, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
-  async getUsersByParams(name: string, page: number, length: number): Promise<UserPage> {
-    const url = `${this.globalObjects.usersByParamsUrl}?name=${name}&page=${page}&size=${length}`;
+  async getUsersByParams(name: string, page: number, size: number): Promise<UserPage> {
+    const url = `${this.globalObjects.usersByParamsUrl}?name=${name}&page=${page}&size=${size}`;
     return this.http.get<UserPage>(url, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }

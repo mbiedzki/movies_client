@@ -13,7 +13,6 @@ export class MenuComponent implements OnInit {
   constructor(
     private globalObjects: GlobalObjects,
     private userService: UserService,
-    private usersListComponent: UsersListComponent,
   ) { }
 
   ngOnInit() {
