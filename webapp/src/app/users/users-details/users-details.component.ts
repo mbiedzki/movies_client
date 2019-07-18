@@ -13,8 +13,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../role";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material";
 import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
-import {UserPage} from "../user-page";
 import {MyErrorStateMatcher} from "../../validators/my-error-state-matcher";
+import {ServerPage} from "../../http-services/server-page";
 
 @Component({
   selector: 'app-users-details',
@@ -95,28 +95,28 @@ export class UsersDetailsComponent implements OnInit {
         this.globalObjects.serverError = true;
       });
 
-    } else
+    } else {
 
-    //*********************************************************
-    //for update
-    this.user.name = this.userForm.get('name').value;
-    this.user.password = this.userForm.get('password').value;
-    //if there was no new password then set empty for api to not change it
-    if (this.user.password == null) {
-      this.user.password = '';
-    }
-    this.removeAdminRole();
-    if (this.userForm.get('isAdmin').value) {
-      this.addAdminRole();
-    }
-    this.user.active = this.userForm.get('active').value;
-    await this.userService.saveUser(this.user).then((receivedUser: User) => {
-        this.user = receivedUser;
+      //*********************************************************
+      //for update
+      this.user.name = this.userForm.get('name').value;
+      this.user.password = this.userForm.get('password').value;
+      //if there was no new password then set empty for api to not change it
+      if (this.user.password == null) {
+        this.user.password = '';
       }
-    ).catch(() => {
-      this.globalObjects.serverError = true;
-    });
-
+      this.removeAdminRole();
+      if (this.userForm.get('isAdmin').value) {
+        this.addAdminRole();
+      }
+      this.user.active = this.userForm.get('active').value;
+      await this.userService.saveUser(this.user).then((receivedUser: User) => {
+          this.user = receivedUser;
+        }
+      ).catch(() => {
+        this.globalObjects.serverError = true;
+      });
+    }
     //*********************************************************
     //for both after success
 
@@ -153,17 +153,17 @@ export class UsersDetailsComponent implements OnInit {
   }
     async getCurrentUsersNames() {
       //get size of users table from server
-      await this.userService.getUsersByParams('', 0, 10).then((receivedUserPage: UserPage) => {
+      await this.userService.getUsersByParams('', 0, 10).then((receivedPage: ServerPage) => {
           //set current page and size
-          this.globalObjects.currentLength = receivedUserPage.totalPages;
+          this.globalObjects.currentLength = receivedPage.totalPages;
         }
       ).catch(() => {
         this.globalObjects.serverError = true;
       });
       //get all users
-      await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedUserPage: UserPage) => {
+      await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedPage: ServerPage) => {
           //write to array of users
-        this.globalObjects.usersInDb = receivedUserPage.content;
+        this.globalObjects.usersInDb = receivedPage.content;
         }
       ).catch(() => {
         this.globalObjects.serverError = true;

@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "./user";
 import {GlobalObjects} from "../global-objects";
 import {Router} from "@angular/router";
-import {UserPage} from "./user-page";
+import {ServerPage} from "./server-page";
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +34,9 @@ export class UserService {
     return this.http.post<User>(url, user, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
-  async getUsersByParams(name: string, page: number, size: number): Promise<UserPage> {
+  async getUsersByParams(name: string, page: number, size: number): Promise<ServerPage> {
     const url = `${this.globalObjects.usersByParamsUrl}?name=${name}&page=${page}&size=${size}`;
-    return this.http.get<UserPage>(url, this.globalObjects.createHttpOptions(
+    return this.http.get<ServerPage>(url, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
 

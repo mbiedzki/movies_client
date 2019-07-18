@@ -30,8 +30,7 @@ export class DirectorService {
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
   async getDirectorsByParams(lastName: string, firstName: string, page: number, size: number, sortBy: string): Promise<any> {
-    const url = `${this.globalObjects.directorsByParamsUrl}?lastName=${lastName}&firstName=${firstName}&page=${page}
-    &size=${size}&sortBy=${sortBy}`;
+    const url = `${this.globalObjects.directorsByParamsUrl}?lastName=${lastName}&firstName=${firstName}&page=${page}&size=${size}&sortBy=${sortBy}`;
     return this.http.get<any>(url, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }

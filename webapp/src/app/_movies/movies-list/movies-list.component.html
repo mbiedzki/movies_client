@@ -37,12 +37,17 @@
 
     <ng-container matColumnDef="directorLastName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Reżyser </mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.director.lastName}} {{movie.director.firstName}}</mat-cell>
+      <mat-cell *matCellDef="let movie">{{movie.director.firstName}} {{movie.director.lastName}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="year">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Rok produkcji </mat-header-cell>
       <mat-cell *matCellDef="let movie"> {{movie.year}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef> Gatunek </mat-header-cell>
+      <mat-cell *matCellDef="let movie"> <span *ngFor="let genre of movie.genres">{{genre.genreName}}, </span></mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>

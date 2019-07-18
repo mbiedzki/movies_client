@@ -68,11 +68,11 @@ export class GlobalObjects {
   //************************************************************************************************
 
   //global params and flags
-  loginError: boolean;
-  serverError: boolean;
-  currentPage: number;
-  currentSize: number;
-  currentLength: number;
+  loginError: boolean = false;
+  serverError: boolean = false;
+  currentPage: number = 0;
+  currentSize: number = 0;
+  currentLength: number = 0;
 
   //global function to clear flags
   public clearFlags() {

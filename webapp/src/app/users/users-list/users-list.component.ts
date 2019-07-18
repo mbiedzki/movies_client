@@ -4,7 +4,7 @@ import {UserService} from "../user.service";
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
 import {MatPaginator, MatSort, PageEvent} from "@angular/material";
-import {UserPage} from "../user-page";
+import {ServerPage} from "../server-page";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class UsersListComponent implements OnInit {
 
   async getUsersList(name: string, page: number, size: number) {
     //get user from server
-    await this.userService.getUsersByParams(name, page, size).then((receivedUserPage: UserPage) => {
+    await this.userService.getUsersByParams(name, page, size).then((receivedUserPage: ServerPage) => {
         this.currentList = receivedUserPage.content;
        //set current page and size
         this.globalObjects.currentPage = page;

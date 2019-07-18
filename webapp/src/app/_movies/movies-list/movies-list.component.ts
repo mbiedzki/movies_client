@@ -21,9 +21,10 @@ export class MoviesListComponent implements OnInit {
       title: new FormControl(),
       directorLastName: new FormControl(),
       year: new FormControl(),
+      genres: new FormControl(),
     });
   public currentList: Array<Movie>;
-  columnsToDisplay: string[] = ['title', 'directorLastName', 'year'];
+  columnsToDisplay: string[] = ['title', 'directorLastName', 'year', 'genres'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
@@ -37,6 +38,7 @@ export class MoviesListComponent implements OnInit {
     this.searchForm.get('title').setValue('');
     this.searchForm.get('directorLastName').setValue('');
     this.searchForm.get('year').setValue('');
+
     await this.getMoviesList('','', '', 0,10, 'title', 'asc');
   }
 

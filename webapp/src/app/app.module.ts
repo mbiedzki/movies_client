@@ -12,7 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   MatIcon, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
   MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule, MatCheckboxModule,
-  MatSnackBarModule,
+  MatSnackBarModule, MatSelectModule, MatDialogModule,
 } from "@angular/material";
 
 import { LoginComponent } from './login/login.component';
@@ -29,6 +29,7 @@ import { GenresDetailsComponent } from './_genres/genres-details/genres-details.
 import { GenresListComponent } from './_genres/genres-list/genres-list.component';
 import { MoviesDetailsComponent } from './_movies/movies-details/movies-details.component';
 import { MoviesListComponent } from './_movies/movies-list/movies-list.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { MoviesListComponent } from './_movies/movies-list/movies-list.component
     GenresListComponent,
     MoviesDetailsComponent,
     MoviesListComponent,
+    ConfirmationDialogComponent,
 
   ],
   imports: [
@@ -67,9 +69,11 @@ import { MoviesListComponent } from './_movies/movies-list/movies-list.component
     MatListModule,
     MatSortModule,
     MatTableModule,
+    MatDialogModule,
     MatPaginatorModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

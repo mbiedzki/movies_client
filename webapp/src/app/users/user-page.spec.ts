@@ -1,7 +1,7 @@
-import { UserPage } from './user-page';
+import { ServerPage } from './server-page';
 
-describe('UserPage', () => {
+describe('ServerPage', () => {
   it('should create an instance', () => {
-    expect(new UserPage()).toBeTruthy();
+    expect(new ServerPage()).toBeTruthy();
   });
 });
