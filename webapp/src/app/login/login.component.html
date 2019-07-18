@@ -8,11 +8,11 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
       <mat-form-field style="width: 30%">
-        <label><input matInput type="text" formControlName="name" placeholder="Nazwa użytkownika"></label>
+        <input matInput type="text" formControlName="name" placeholder="Nazwa użytkownika">
       </mat-form-field><br/><br/>
 
       <mat-form-field style="width: 30%">
-          <label><input matInput formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'"></label>
+          <input matInput formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

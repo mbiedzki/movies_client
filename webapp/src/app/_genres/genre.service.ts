@@ -8,7 +8,7 @@ import {Genre} from "./genre";
 @Injectable({
   providedIn: 'root'
 })
-export class genreService {
+export class GenreService {
 
   async getGenreById(id: number): Promise<Genre> {
     const url = `${this.globalObjects.genreByIdUrl}${id}`;

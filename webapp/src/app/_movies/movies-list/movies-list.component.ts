@@ -4,7 +4,7 @@ import{Router} from "@angular/router";
 import {MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
 import {Movie} from "../movie";
 import {MovieService} from "../movie.service";
-
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,13 @@ import {MovieService} from "../movie.service";
 })
 
 export class MoviesListComponent implements OnInit {
-  pageEvent: PageEvent;
-
+  searchForm = new FormGroup(
+    {
+      title: new FormControl(),
+      directorLastName: new FormControl(),
+      year: new FormControl(),
+    });
   public currentList: Array<Movie>;
-  dataSource = new MatTableDataSource(this.currentList);
   columnsToDisplay: string[] = ['title', 'directorLastName', 'year'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -31,6 +34,9 @@ export class MoviesListComponent implements OnInit {
 
   async ngOnInit() {
     this.globalObjects.clearFlags();
+    this.searchForm.get('title').setValue('');
+    this.searchForm.get('directorLastName').setValue('');
+    this.searchForm.get('year').setValue('');
     await this.getMoviesList('','', '', 0,10, 'title', 'asc');
   }
 
@@ -54,5 +60,9 @@ export class MoviesListComponent implements OnInit {
   }
   getNewSortData(sort: Sort) {
     this.getMoviesList('', '', '', 0, 10, sort.active, sort.direction)
+  }
+  getFilteredData() {
+    this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
+      this.searchForm.get('year').value, 0, 10, 'title', 'asc');
   }
 }
