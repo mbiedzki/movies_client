@@ -149,7 +149,7 @@ export class MoviesDetailsComponent implements OnInit {
     }
     //!*********************************************************
     //for both after success
-    this.router.navigateByUrl('/movies/details/' + this.movie.id);
+    this.router.navigateByUrl('/movies/list');
     this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Film został zapisany', this.movie.title)
   }

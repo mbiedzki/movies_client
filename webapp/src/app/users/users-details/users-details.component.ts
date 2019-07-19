@@ -132,7 +132,7 @@ export class UsersDetailsComponent implements OnInit {
     //*********************************************************
     //for both after success
 
-    this.router.navigateByUrl('/users/details/' + this.user.id);
+    this.router.navigateByUrl('/users/list');
     this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Użytkownik został zapisany', this.user.name)
   }

@@ -15,7 +15,7 @@
     <mat-form-field style="width: 30%">
       <mat-label>Reżyser</mat-label>
       <mat-select formControlName="director">
-        <mat-option *ngFor="let director of this.globalObjects.directorsInDb" [value]="director.id">{{director.firstName}} {{director.lastName}}</mat-option>
+        <mat-option *ngFor="let director of this.globalObjects.directorsInDb" [value]="director.id">{{director.lastName}} {{director.firstName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="movieForm.controls['director'].hasError('required')">Pole nie może być puste !</mat-error>
     </mat-form-field><br/>

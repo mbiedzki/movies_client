@@ -105,7 +105,7 @@ export class GenresDetailsComponent implements OnInit {
     }
     //!*********************************************************
     //for both after success
-    this.router.navigateByUrl('/genres/details/' + this.genre.id);
+    this.router.navigateByUrl('/genres/list');
     this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Gatunek został zapisany', this.genre.genreName)
   }

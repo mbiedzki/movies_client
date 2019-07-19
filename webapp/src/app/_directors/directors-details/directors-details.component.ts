@@ -112,7 +112,7 @@ export class DirectorsDetailsComponent implements OnInit {
     }
     //!*********************************************************
     //for both after success
-    this.router.navigateByUrl('/directors/details/' + this.director.id);
+    this.router.navigateByUrl('/directors/list');
     this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Reżyser został zapisany', this.director.firstName+' '+this.director.lastName)
   }
