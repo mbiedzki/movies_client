@@ -1,7 +1,7 @@
-import {User} from "./user";
+import {User} from "../users/user";
 
 export class ServerPage {
-  content: Array<User>;
+  content: Array<any>;
   totalElements: number;
   totalPages: number;
 }

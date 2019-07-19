@@ -71,8 +71,15 @@ export class GlobalObjects {
   loginError: boolean = false;
   serverError: boolean = false;
   currentPage: number = 0;
-  currentSize: number = 0;
+  currentSize: number = 10;
   currentLength: number = 0;
+  currentSortActive: string = '';
+  currentSortOrder: string = '';
+
+  //for movies
+  filterTitle: string = '';
+  filterDirector: string = '';
+  filterYear: string = '';
 
   //global function to clear flags
   public clearFlags() {

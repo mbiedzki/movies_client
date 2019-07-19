@@ -16,6 +16,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 
 export class MoviesListComponent implements OnInit {
+  pageEvent: PageEvent;
   searchForm = new FormGroup(
     {
       title: new FormControl(),
@@ -35,11 +36,10 @@ export class MoviesListComponent implements OnInit {
 
   async ngOnInit() {
     this.globalObjects.clearFlags();
-    this.searchForm.get('title').setValue('');
-    this.searchForm.get('directorLastName').setValue('');
-    this.searchForm.get('year').setValue('');
-
-    await this.getMoviesList('','', '', 0,10, 'title', 'asc');
+    this.searchForm.get('title').setValue(this.globalObjects.filterTitle);
+    this.searchForm.get('directorLastName').setValue(this.globalObjects.filterDirector);
+    this.searchForm.get('year').setValue(this.globalObjects.filterYear);
+    await this.getFilteredData();
   }
 
   async getMoviesList(title: string, directorLastName: string, year: string, page: number, size: number, sortBy: string, sortOrder: string) {
@@ -48,7 +48,7 @@ export class MoviesListComponent implements OnInit {
         this.currentList = receivedObject.content;
         //set current page and size
         this.globalObjects.currentPage = page;
-        this.globalObjects.currentLength = receivedObject.totalPages;
+        this.globalObjects.currentLength = receivedObject.totalElements;
         this.globalObjects.currentSize = size;
         this.router.navigateByUrl('movies/list')
       }
@@ -58,13 +58,25 @@ export class MoviesListComponent implements OnInit {
   }
 
   getNewPageData(event?:PageEvent) {
-    this.getMoviesList('', '', '', event.pageIndex, event.pageSize, 'title', 'asc')
+    this.globalObjects.currentPage = event.pageIndex;
+    this.globalObjects.currentSize = event.pageSize;
+    this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
+      this.searchForm.get('year').value, this.globalObjects.currentPage, this.globalObjects.currentSize,
+      this.globalObjects.currentSortActive, this.globalObjects.currentSortOrder)
   }
   getNewSortData(sort: Sort) {
-    this.getMoviesList('', '', '', 0, 10, sort.active, sort.direction)
+    this.globalObjects.currentSortActive = sort.active;
+    this.globalObjects.currentSortOrder = sort.direction;
+    this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
+      this.searchForm.get('year').value, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
+      this.globalObjects.currentSortOrder)
   }
   getFilteredData() {
-    this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
-      this.searchForm.get('year').value, 0, 10, 'title', 'asc');
+    this.globalObjects.filterTitle = this.searchForm.get('title').value;
+    this.globalObjects.filterDirector = this.searchForm.get('directorLastName').value;
+    this.globalObjects.filterYear = this.searchForm.get('year').value;
+    this.getMoviesList(this.globalObjects.filterTitle, this.globalObjects.filterDirector,
+      this.globalObjects.filterYear, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
+      this.globalObjects.currentSortOrder);
   }
 }

@@ -11,10 +11,14 @@ import {UserService} from "../user.service";
 import {GlobalObjects} from "../../global-objects";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../role";
-import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material";
+import {ErrorStateMatcher, MatDialog, ShowOnDirtyErrorStateMatcher} from "@angular/material";
 import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
 import {MyErrorStateMatcher} from "../../validators/my-error-state-matcher";
 import {ServerPage} from "../../http-services/server-page";
+import {
+  ConfirmationDialogComponent,
+  ConfirmDialogModel
+} from "../../shared/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-users-details',
@@ -56,9 +60,20 @@ export class UsersDetailsComponent implements OnInit {
       this.globalObjects.serverError = true;
     });
   }
+  deleteUserConfirm(): void {
+    const message = `Czy na pewno chesz usunąć ?`;
+    const dialogData = new ConfirmDialogModel("Potwierdź", message);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult) {this.deleteUserById();}
+    });
+  }
 
   async deleteUserById() {
-    if(confirm('Czy chcesz usunąć użytkownika : ' + this.user.name)) {
       await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
           this.globalObjects.clearFlags();
           this.globalObjects.openSnackBar('Użytkownik został usunięty', this.user.name);
@@ -67,9 +82,6 @@ export class UsersDetailsComponent implements OnInit {
       ).catch(() => {
         this.globalObjects.serverError = true;
       });
-    } else {
-
-    }
     await this.getCurrentUsersNames();
     this.userForm.updateValueAndValidity();
   }
@@ -175,6 +187,7 @@ export class UsersDetailsComponent implements OnInit {
     private globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
   ) {
   }
 

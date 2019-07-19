@@ -39,13 +39,14 @@
       <mat-error *ngIf="movieForm.controls['description'].hasError('required')">Pole nie może być puste !</mat-error>
     </mat-form-field><br/>
 
-
-
     <mat-card-actions>
       <button mat-raised-button [disabled]="(!movieForm.valid)&&(this.isNew)" (click)="saveMovie()" color="primary">Zapisz</button>
       <span class="checkbox-spacer"></span>
-      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteMovieById()" color="accent">Usuń</button><br/><br/>
+      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteMovieConfirm()" color="accent">Usuń</button>
+      <span class="header-spacer"></span>
+      <button mat-raised-button (click)="back()" color="primary">Cofnij</button><br/><br/>
     </mat-card-actions>
+
     <mat-card-footer style="color: blue">
       <p style="color: crimson" *ngIf="this.globalObjects.serverError"> Błąd serwera</p>
     </mat-card-footer>

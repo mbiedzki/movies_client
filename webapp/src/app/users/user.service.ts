@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "./user";
 import {GlobalObjects} from "../global-objects";
 import {Router} from "@angular/router";
-import {ServerPage} from "./server-page";
+import {ServerPage} from "../http-services/server-page";
 
 @Injectable({
   providedIn: 'root'

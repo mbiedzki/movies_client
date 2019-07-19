@@ -4,7 +4,7 @@ import {UserService} from "../user.service";
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
 import {MatPaginator, MatSort, PageEvent} from "@angular/material";
-import {ServerPage} from "../server-page";
+import {ServerPage} from "../../http-services/server-page";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class UsersListComponent implements OnInit {
         this.currentList = receivedUserPage.content;
        //set current page and size
         this.globalObjects.currentPage = page;
-        this.globalObjects.currentLength = receivedUserPage.totalPages;
+        this.globalObjects.currentLength = receivedUserPage.totalElements;
         this.globalObjects.currentSize = size;
       this.router.navigateByUrl('users/list')
       }
@@ -47,7 +47,7 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  getServerData(event?:PageEvent) {
+  getNewPageData(event?:PageEvent) {
     this.getUsersList('', event.pageIndex, event.pageSize)
   }
 }
