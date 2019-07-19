@@ -7,6 +7,8 @@ import {UsersListComponent} from "./users/users-list/users-list.component";
 import {UsersDetailsComponent} from "./users/users-details/users-details.component";
 import {MoviesListComponent} from "./_movies/movies-list/movies-list.component";
 import {MoviesDetailsComponent} from "./_movies/movies-details/movies-details.component";
+import {DirectorsListComponent} from "./_directors/directors-list/directors-list.component";
+import {DirectorsDetailsComponent} from "./_directors/directors-details/directors-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +20,9 @@ const routes: Routes = [
   { path: 'movies/list', component: MoviesListComponent},
   { path: 'movies/details', component: MoviesDetailsComponent},
   { path: 'movies/details/:id', component: MoviesDetailsComponent},
+  { path: 'directors/list', component: DirectorsListComponent},
+  { path: 'directors/details', component: DirectorsDetailsComponent},
+  { path: 'directors/details/:id', component: DirectorsDetailsComponent},
 ];
 
 @NgModule({

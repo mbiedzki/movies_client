@@ -81,6 +81,10 @@ export class GlobalObjects {
   filterDirector: string = '';
   filterYear: string = '';
 
+  //for directors
+  filterDirFirstName: string = '';
+  filterDirLastName: string = '';
+
   //global function to clear flags
   public clearFlags() {
     this.loginError = false;

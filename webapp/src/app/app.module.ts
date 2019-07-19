@@ -24,7 +24,6 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersDetailsComponent } from './users/users-details/users-details.component';
 import {ForbiddenValidatorDirective} from "./validators/forbidden-name-directive";
 import { DirectorsDetailsComponent } from './_directors/directors-details/directors-details.component';
-import { DirectorsListComponent } from './_directors/directors-list/directors-list.component';
 import { GenresDetailsComponent } from './_genres/genres-details/genres-details.component';
 import { GenresListComponent } from './_genres/genres-list/genres-list.component';
 import { MoviesDetailsComponent } from './_movies/movies-details/movies-details.component';
@@ -33,6 +32,9 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
 } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { DirectorsListComponent } from './_directors/directors-list/directors-list.component';
+
+
 
 
 @NgModule({
@@ -47,12 +49,13 @@ import {
     UsersDetailsComponent,
     ForbiddenValidatorDirective,
     DirectorsDetailsComponent,
-    DirectorsListComponent,
     GenresDetailsComponent,
     GenresListComponent,
     MoviesDetailsComponent,
     MoviesListComponent,
     ConfirmationDialogComponent,
+    DirectorsListComponent,
+
 
   ],
   imports: [

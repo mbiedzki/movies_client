@@ -192,9 +192,6 @@ export class MoviesDetailsComponent implements OnInit {
       this.globalObjects.serverError = true;
     });
   }
-  back() {
-    this.router.navigateByUrl('movies/list')
-  }
 
   constructor(
     private movieService: MovieService,
