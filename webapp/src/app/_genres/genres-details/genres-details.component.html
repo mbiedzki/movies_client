@@ -1,1 +1,28 @@
-<p>genres-details works!</p>
+<app-header></app-header>
+<app-menu></app-menu>
+
+<mat-card style="text-align: center;">
+
+  <mat-card-title>Dane gatunku</mat-card-title><br/><br/>
+
+  <form [formGroup]="genreForm">
+
+    <mat-form-field style="width: 30%">
+      <input matInput type="text" formControlName="genreName" [errorStateMatcher]="matcher" placeholder="Gatunek">
+      <mat-error *ngIf="genreForm.controls['genreName'].hasError('required')">Pole nie może być puste !</mat-error>
+    </mat-form-field><br/>
+
+    <mat-card-actions>
+      <button mat-raised-button [disabled]="(!genreForm.valid)&&(this.isNew)" (click)="saveGenre()" color="primary">Zapisz</button>
+      <span class="checkbox-spacer"></span>
+      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteGenreConfirm()" color="accent">Usuń</button>
+      <span class="header-spacer"></span>
+      <button type="button" mat-raised-button [routerLink]="'/genres/list'" color="primary">Cofnij</button><br/><br/>
+    </mat-card-actions>
+
+    <mat-card-footer style="color: blue">
+      <p style="color: crimson" *ngIf="this.globalObjects.serverError"> Błąd serwera</p>
+    </mat-card-footer>
+  </form>
+</mat-card>
+

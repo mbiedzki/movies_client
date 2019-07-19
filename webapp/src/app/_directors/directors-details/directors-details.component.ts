@@ -103,8 +103,8 @@ export class DirectorsDetailsComponent implements OnInit {
     } else {
       //!*********************************************************
       //for update
-      await this.directorService.saveDirector(this.director).then((receivedMovie: Director) => {
-          this.director = receivedMovie;
+      await this.directorService.saveDirector(this.director).then((receivedObject: Director) => {
+          this.director = receivedObject;
         }
       ).catch(() => {
         this.globalObjects.serverError = true;
