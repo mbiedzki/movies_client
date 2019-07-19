@@ -8,7 +8,7 @@
   <form [formGroup]="movieForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" [readonly]="!isNew" formControlName="title" [errorStateMatcher]="matcher" placeholder="Tytuł">
+      <input matInput type="text" formControlName="title" [errorStateMatcher]="matcher" placeholder="Tytuł">
       <mat-error *ngIf="movieForm.controls['title'].hasError('required')">Pole nie może być puste !</mat-error>
     </mat-form-field><br/>
 
