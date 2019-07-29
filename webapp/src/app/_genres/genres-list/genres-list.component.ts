@@ -32,7 +32,6 @@ export class GenresListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.globalObjects.clearFlags();
     this.searchForm.get('genreName').setValue(this.globalObjects.filterGenreName);
     await this.getFilteredData();
   }

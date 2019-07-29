@@ -13,7 +13,10 @@
     </mat-form-field><br/>
 
     <mat-card-actions>
-      <button mat-raised-button [disabled]="(!genreForm.valid)&&(this.isNew)" (click)="saveGenre()" color="primary">Zapisz</button>
+      <button mat-raised-button [disabled]="(!genreForm.valid)&&(this.isNew)" (click)="saveGenre()" color="primary">
+        <span *ngIf="this.isNew">Dodaj</span>
+        <span *ngIf="!this.isNew">Zapisz</span>
+      </button>
       <span class="checkbox-spacer"></span>
       <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteGenreConfirm()" color="accent">Usuń</button>
       <span class="header-spacer"></span>

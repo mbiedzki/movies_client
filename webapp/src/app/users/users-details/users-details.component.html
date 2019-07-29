@@ -29,7 +29,10 @@
       </mat-toolbar-row>
 
       <mat-card-actions>
-          <button mat-raised-button [disabled]="(!userForm.valid)&&(this.isNew)"(click)="saveUser()" color="primary">Zapisz</button>
+          <button mat-raised-button [disabled]="(!userForm.valid)&&(this.isNew)"(click)="saveUser()" color="primary">
+            <span *ngIf="this.isNew">Dodaj</span>
+            <span *ngIf="!this.isNew">Zapisz</span>
+          </button>
           <span class="checkbox-spacer"></span>
           <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserConfirm()" color="accent">Usuń</button><br/><br/>
       </mat-card-actions>

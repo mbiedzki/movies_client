@@ -17,6 +17,8 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
+import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
+import {forbiddenTitleValidator} from "../../validators/forbidden-title.directive";
 
 @Component({
   selector: 'app-movies-details',
@@ -32,6 +34,7 @@ export class MoviesDetailsComponent implements OnInit {
     {
       title: new FormControl('', [
         Validators.required,
+        forbiddenTitleValidator(this.globalObjects.moviesInDb),
       ]),
       director: new FormControl('', [
         Validators.required,
@@ -150,7 +153,6 @@ export class MoviesDetailsComponent implements OnInit {
     //!*********************************************************
     //for both after success
     this.router.navigateByUrl('/movies/list');
-    this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Film został zapisany', this.movie.title)
   }
 
@@ -193,6 +195,30 @@ export class MoviesDetailsComponent implements OnInit {
     });
   }
 
+  async getCurrentMoviesList() {
+    //get size of genres table from server
+    await this.movieService.getMoviesByParams('', '', '', '', 0, 10, 'title', 'asc').then((receivedPage: ServerPage) => {
+        //set current page and size
+        this.globalObjects.currentLength = receivedPage.totalPages;
+      }
+    ).catch(() => {
+      this.globalObjects.serverError = true;
+    });
+    //get all users
+    await this.movieService.getMoviesByParams('', '', '', '', 0, this.globalObjects.currentLength * 10, 'title', 'asc').then((receivedPage: ServerPage) => {
+        //write to array of users
+        this.globalObjects.moviesInDb = receivedPage.content;
+      }
+    ).catch(() => {
+      this.globalObjects.serverError = true;
+    });
+  }
+
+  updateGlobalObjects() {
+    this.globalObjects.currentYear = this.movieForm.get('year').value;
+    this.globalObjects.currentTitle = this.movieForm.get('title').value;
+  }
+
   constructor(
     private movieService: MovieService,
     private directorService: DirectorService,
@@ -207,6 +233,9 @@ export class MoviesDetailsComponent implements OnInit {
   async ngOnInit() {
     await this.getCurrentDirectorsList();
     await this.getCurrentGenresList();
+    await this.getCurrentMoviesList();
+    this.movieForm.get('title').setValue(this.globalObjects.currentTitle);
+    this.movieForm.get('year').setValue(this.globalObjects.currentYear);
     this.movieForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {

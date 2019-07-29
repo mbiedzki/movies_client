@@ -18,7 +18,10 @@
     </mat-form-field><br/>
 
     <mat-card-actions>
-      <button mat-raised-button [disabled]="(!directorForm.valid)&&(this.isNew)" (click)="saveDirector()" color="primary">Zapisz</button>
+      <button mat-raised-button [disabled]="(!directorForm.valid)&&(this.isNew)" (click)="saveDirector()" color="primary">
+        <span *ngIf="this.isNew">Dodaj</span>
+        <span *ngIf="!this.isNew">Zapisz</span>
+      </button>
       <span class="checkbox-spacer"></span>
       <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteDirectorConfirm()" color="accent">Usuń</button>
       <span class="header-spacer"></span>

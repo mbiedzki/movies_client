@@ -8,8 +8,9 @@
   <form [formGroup]="movieForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="title" [errorStateMatcher]="matcher" placeholder="Tytuł">
+      <input matInput type="text" formControlName="title" [errorStateMatcher]="matcher" (ngModelChange)="this.updateGlobalObjects()" placeholder="Tytuł">
       <mat-error *ngIf="movieForm.controls['title'].hasError('required')">Pole nie może być puste !</mat-error>
+      <mat-error *ngIf="movieForm.controls['title'].hasError('forbiddenTitle')&&(this.isNew)">Ten tytuł nie może być użyty !</mat-error>
     </mat-form-field><br/>
 
     <mat-form-field style="width: 30%">
@@ -21,7 +22,7 @@
     </mat-form-field><br/>
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="year" [errorStateMatcher]="matcher" placeholder="Rok produkcji">
+      <input matInput type="text" formControlName="year" [errorStateMatcher]="matcher" (ngModelChange)="this.updateGlobalObjects()" placeholder="Rok produkcji">
       <mat-error *ngIf="movieForm.controls['year'].hasError('required')">Pole nie może być puste !</mat-error>
       <mat-error *ngIf="movieForm.controls['year'].hasError('pattern')">4 cyfry !</mat-error>
     </mat-form-field><br/>
@@ -40,7 +41,10 @@
     </mat-form-field><br/>
 
     <mat-card-actions>
-      <button mat-raised-button [disabled]="(!movieForm.valid)&&(this.isNew)" (click)="saveMovie()" color="primary">Zapisz</button>
+      <button mat-raised-button [disabled]="(!movieForm.valid)&&(this.isNew)" (click)="saveMovie()" color="primary">
+        <span *ngIf="this.isNew">Dodaj</span>
+        <span *ngIf="!this.isNew">Zapisz</span>
+      </button>
       <span class="checkbox-spacer"></span>
       <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteMovieConfirm()" color="accent">Usuń</button>
       <span class="header-spacer"></span>

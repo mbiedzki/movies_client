@@ -28,7 +28,6 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.globalObjects.clearFlags();
     this.getUsersList('', 0, 10)
   }
 

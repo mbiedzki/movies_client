@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
 import {Genre} from "./_genres/genre";
 import {Director} from "./_directors/director";
+import {Movie} from "./_movies/movie";
 
 @Injectable({
     providedIn: 'root'
@@ -64,6 +65,7 @@ export class GlobalObjects {
   usersInDb: Array<User> = new Array<User>();
   genresInDb: Array<Genre> = new Array<Genre>();
   directorsInDb: Array<Director> = new Array<Director>();
+  moviesInDb: Array<Movie> = new Array<Movie>();
 
   //************************************************************************************************
 
@@ -80,6 +82,8 @@ export class GlobalObjects {
   filterTitle: string = '';
   filterDirector: string = '';
   filterYear: string = '';
+  currentTitle: string = '';
+  currentYear: string = '';
 
   //for directors
   filterDirFirstName: string = '';
@@ -92,6 +96,18 @@ export class GlobalObjects {
   public clearFlags() {
     this.loginError = false;
     this.serverError =  false;
+    this.currentPage = 0;
+    this.currentSize = 10;
+    this.currentSortActive = '';
+    this.currentSortOrder = '';
+    this.filterTitle = '';
+    this.filterDirector = '';
+    this.filterYear = '';
+    this.filterDirFirstName = '';
+    this.filterDirLastName = '';
+    this.filterGenreName = '';
+    this.currentTitle = '';
+    this.currentYear = '';
   }
   //************************************************************************************************
 

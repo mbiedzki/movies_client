@@ -33,7 +33,6 @@ export class DirectorsListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.globalObjects.clearFlags();
     this.searchForm.get('lastName').setValue(this.globalObjects.filterDirLastName);
     this.searchForm.get('firstName').setValue(this.globalObjects.filterDirFirstName);
     await this.getFilteredData();

@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
       }
       //clear login error if it was unsuccessful during login
       this.globalObjects.loginError = false;
+      this.globalObjects.clearFlags();
       this.router.navigateByUrl('main')
     }
    ).catch(() => {

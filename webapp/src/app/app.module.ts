@@ -33,6 +33,7 @@ import {
   ConfirmDialogModel
 } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { DirectorsListComponent } from './_directors/directors-list/directors-list.component';
+import { ForbiddenTitleValidatorDirective } from './validators/forbidden-title.directive';
 
 
 
@@ -55,6 +56,7 @@ import { DirectorsListComponent } from './_directors/directors-list/directors-li
     MoviesListComponent,
     ConfirmationDialogComponent,
     DirectorsListComponent,
+    ForbiddenTitleValidatorDirective,
 
 
   ],
