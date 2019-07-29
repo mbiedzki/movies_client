@@ -30,8 +30,8 @@ export class MovieService {
     return this.http.post<Movie>(url, Movie, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
-  async getMoviesByParams(title: string, directorLastName: string, year: string, page: number, size: number, sortBy: string, sortOrder: string): Promise<any> {
-    const url = `${this.globalObjects.moviesByParamsUrl}?title=${title}&directorLastName=${directorLastName}&year=${year}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
+  async getMoviesByParams(title: string, directorLastName: string, year: string, genreName: string, page: number, size: number, sortBy: string, sortOrder: string): Promise<any> {
+    const url = `${this.globalObjects.moviesByParamsUrl}?title=${title}&directorLastName=${directorLastName}&year=${year}&genreName=${genreName}&page=${page}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
     return this.http.get(url, this.globalObjects.createHttpOptions(
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
