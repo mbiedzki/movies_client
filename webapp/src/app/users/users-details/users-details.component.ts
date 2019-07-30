@@ -57,7 +57,7 @@ export class UsersDetailsComponent implements OnInit {
         this.userForm.get('isAdmin').setValue(this.globalObjects.isUserAdmin(this.user));
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać użytkownika!', '');
     });
   }
   deleteUserConfirm(): void {
@@ -75,12 +75,11 @@ export class UsersDetailsComponent implements OnInit {
 
   async deleteUserById() {
       await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
-          this.globalObjects.clearFlags();
           this.globalObjects.openSnackBar('Użytkownik został usunięty', this.user.name);
           this.router.navigateByUrl('/users/list')
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można usunąć użytkownika !', '');
       });
     await this.getCurrentUsersNames();
     this.userForm.updateValueAndValidity();
@@ -97,6 +96,7 @@ export class UsersDetailsComponent implements OnInit {
       this.addUserRole();
       this.user.name = this.userForm.get('name').value;
       this.user.password = this.userForm.get('password').value;
+      this.user.active = this.userForm.get('active').value;
       if (this.userForm.get('isAdmin').value) {
         this.addAdminRole();
       }
@@ -104,7 +104,7 @@ export class UsersDetailsComponent implements OnInit {
           this.user = receivedUser;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można dodać użytkownika !', '');
       });
 
     } else {
@@ -126,14 +126,13 @@ export class UsersDetailsComponent implements OnInit {
           this.user = receivedUser;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można zapisać użytkownika !', '');
       });
     }
     //*********************************************************
     //for both after success
 
     this.router.navigateByUrl('/users/list');
-    this.globalObjects.clearFlags();
     this.globalObjects.openSnackBar('Użytkownik został zapisany', this.user.name)
   }
 
@@ -170,7 +169,7 @@ export class UsersDetailsComponent implements OnInit {
           this.globalObjects.currentLength = receivedPage.totalPages;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można pobrać listy użytkowników !', '');
       });
       //get all users
       await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedPage: ServerPage) => {
@@ -178,7 +177,7 @@ export class UsersDetailsComponent implements OnInit {
         this.globalObjects.usersInDb = receivedPage.content;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można pobrać listy użytkowników !', '');
       });
     }
 

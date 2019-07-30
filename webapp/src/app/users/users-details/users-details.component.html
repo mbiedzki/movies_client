@@ -36,9 +36,7 @@
           <span class="checkbox-spacer"></span>
           <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserConfirm()" color="accent">Usuń</button><br/><br/>
       </mat-card-actions>
-      <mat-card-footer style="color: blue">
-        <p style="color: crimson" *ngIf="this.globalObjects.serverError"> Błąd serwera</p>
-      </mat-card-footer>
+
     </form>
   </mat-card>
 

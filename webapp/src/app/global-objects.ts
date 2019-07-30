@@ -61,7 +61,7 @@ export class GlobalObjects {
   }
   //************************************************************************************************
 
-  //global tables
+  //global tables for selection and validation
   usersInDb: Array<User> = new Array<User>();
   genresInDb: Array<Genre> = new Array<Genre>();
   directorsInDb: Array<Director> = new Array<Director>();
@@ -70,8 +70,13 @@ export class GlobalObjects {
   //************************************************************************************************
 
   //global params and flags
+
+  //for errors
   loginError: boolean = false;
   serverError: boolean = false;
+  accessError: boolean = false;
+
+  //for sorting and paging
   currentPage: number = 0;
   currentSize: number = 10;
   currentLength: number = 0;
@@ -82,19 +87,24 @@ export class GlobalObjects {
   filterTitle: string = '';
   filterDirector: string = '';
   filterYear: string = '';
+  filterGenreName: string = '';
   currentTitle: string = '';
   currentYear: string = '';
+  currentDirector: string;
+  currentDescription: string;
+  currentGenres: [];
 
   //for directors
   filterDirFirstName: string = '';
   filterDirLastName: string = '';
 
   //for genres
-  filterGenreName: string = '';
+  filterGenresGenreName: string = '';
 
   //global function to clear flags
-  public clearFlags() {
+  public clearAllGlobalParams() {
     this.loginError = false;
+    this.accessError = false;
     this.serverError =  false;
     this.currentPage = 0;
     this.currentSize = 10;
@@ -106,8 +116,21 @@ export class GlobalObjects {
     this.filterDirFirstName = '';
     this.filterDirLastName = '';
     this.filterGenreName = '';
+    this.filterGenresGenreName = '';
     this.currentTitle = '';
     this.currentYear = '';
+    this.currentDirector = '';
+    this.currentDescription = '';
+    this.currentGenres = [];
+  }
+
+  //global function to clear current movie
+  public clearGlobalCurrentMovie() {
+    this.currentTitle = '';
+    this.currentYear = '';
+    this.currentDirector = '';
+    this.currentDescription = '';
+    this.currentGenres = [];
   }
   //************************************************************************************************
 

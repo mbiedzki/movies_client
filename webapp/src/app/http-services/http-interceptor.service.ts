@@ -4,12 +4,15 @@ import {
   HttpHandler,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse, HttpClient
 } from '@angular/common/http';
+import {ActivatedRoute, Router} from "@angular/router";
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import {GlobalObjects} from "../global-objects";
 
 export class HttpInterceptorService implements HttpInterceptor {
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
@@ -20,15 +23,22 @@ export class HttpInterceptorService implements HttpInterceptor {
           if (error.error instanceof ErrorEvent) {
             // client-side error
             errorMessage = `Błąd aplikacji: ${error.error.message}`;
+            this.router.navigateByUrl('login');
             window.alert(errorMessage);
             return throwError(errorMessage);
           } else {
             // server-side error
             errorCode = `${error.status}`;
-            console.error('Błąd serwera: ' + errorCode)
+            if(errorCode == '401') {
+              this.globalObjects.accessError = true;
+              this.router.navigateByUrl('login');
+            }
             return throwError(errorCode);
           }
         })
       )
   }
+  constructor(
+    private router: Router, private globalObjects: GlobalObjects,
+  ) { }
 }

@@ -70,7 +70,7 @@ export class MoviesDetailsComponent implements OnInit {
 
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać filmu !', '');
     });
   }
 
@@ -91,12 +91,11 @@ export class MoviesDetailsComponent implements OnInit {
 
   async deleteMovieById() {
     await this.movieService.deleteMovieById(this.movie.id).then((receivedObject: any) => {
-        this.globalObjects.clearFlags();
         this.globalObjects.openSnackBar('Film został usunięty', this.movie.title);
         this.router.navigateByUrl('/movies/list')
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można usunąć filmu !', '');
     });
   }
 
@@ -137,7 +136,7 @@ export class MoviesDetailsComponent implements OnInit {
           this.movie = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można dodać filmu !', '');
       });
 
     } else {
@@ -147,11 +146,12 @@ export class MoviesDetailsComponent implements OnInit {
           this.movie = receivedMovie;
         }
       ).catch(() => {
-        this.globalObjects.serverError = true;
+        this.globalObjects.openSnackBar('Nie można zapisać filmu !', '');
       });
     }
     //!*********************************************************
     //for both after success
+    this.globalObjects.clearGlobalCurrentMovie();
     this.router.navigateByUrl('/movies/list');
     this.globalObjects.openSnackBar('Film został zapisany', this.movie.title)
   }
@@ -164,7 +164,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy reżyserów !', '');
     });
     //get all users
     await this.directorService.getDirectorsByParams('', '', 0, this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
@@ -172,7 +172,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.directorsInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy reżyserów !', '');
     });
   }
 
@@ -183,7 +183,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
     });
     //get all users
     await this.genreService.getGenresByParams('', 0, this.globalObjects.currentLength * 10, 'genreName').then((receivedPage: ServerPage) => {
@@ -191,7 +191,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.genresInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
     });
   }
 
@@ -202,7 +202,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy filmów !', '');
     });
     //get all users
     await this.movieService.getMoviesByParams('', '', '', '', 0, this.globalObjects.currentLength * 10, 'title', 'asc').then((receivedPage: ServerPage) => {
@@ -210,13 +210,8 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.moviesInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy filmów !', '');
     });
-  }
-
-  updateGlobalObjects() {
-    this.globalObjects.currentYear = this.movieForm.get('year').value;
-    this.globalObjects.currentTitle = this.movieForm.get('title').value;
   }
 
   constructor(
@@ -236,6 +231,9 @@ export class MoviesDetailsComponent implements OnInit {
     await this.getCurrentMoviesList();
     this.movieForm.get('title').setValue(this.globalObjects.currentTitle);
     this.movieForm.get('year').setValue(this.globalObjects.currentYear);
+    this.movieForm.get('director').setValue(this.globalObjects.currentDirector);
+    this.movieForm.get('genres').setValue(this.globalObjects.currentGenres);
+    this.movieForm.get('description').setValue(this.globalObjects.currentDescription);
     this.movieForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {

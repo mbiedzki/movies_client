@@ -32,7 +32,7 @@ export class GenresListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.searchForm.get('genreName').setValue(this.globalObjects.filterGenreName);
+    this.searchForm.get('genreName').setValue(this.globalObjects.filterGenresGenreName);
     await this.getFilteredData();
   }
 
@@ -47,25 +47,25 @@ export class GenresListComponent implements OnInit {
         this.router.navigateByUrl('genres/list')
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
     });
   }
 
   getNewPageData(event?:PageEvent) {
     this.globalObjects.currentPage = event.pageIndex;
     this.globalObjects.currentSize = event.pageSize;
-    this.getGenresList(this.globalObjects.filterGenreName, this.globalObjects.currentPage, this.globalObjects.currentSize,
+    this.getGenresList(this.globalObjects.filterGenresGenreName, this.globalObjects.currentPage, this.globalObjects.currentSize,
       this.globalObjects.currentSortActive)
   }
   getNewSortData(sort: Sort) {
     this.globalObjects.currentSortActive = sort.active;
     this.globalObjects.currentSortOrder = sort.direction;
-    this.getGenresList(this.globalObjects.filterGenreName,0,
+    this.getGenresList(this.globalObjects.filterGenresGenreName,0,
       this.globalObjects.currentSize, this.globalObjects.currentSortActive)
   }
   getFilteredData() {
-    this.globalObjects.filterGenreName = this.searchForm.get('genreName').value;
-    this.getGenresList(this.globalObjects.filterGenreName, 0,
+    this.globalObjects.filterGenresGenreName = this.searchForm.get('genreName').value;
+    this.getGenresList(this.globalObjects.filterGenresGenreName, 0,
       this.globalObjects.currentSize, this.globalObjects.currentSortActive)
   }
 }

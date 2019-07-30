@@ -54,7 +54,7 @@ export class MoviesListComponent implements OnInit {
         this.router.navigateByUrl('movies/list')
       }
     ).catch(() => {
-      this.globalObjects.serverError = true;
+      this.globalObjects.openSnackBar('Nie można pobrać listy filmów !', '');
     });
   }
 

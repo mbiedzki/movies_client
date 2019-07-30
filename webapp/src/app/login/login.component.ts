@@ -42,13 +42,11 @@ export class LoginComponent implements OnInit {
       if(this.globalObjects.isUserAdmin(receivedUser)) {
         this.globalObjects.isAdmin = true;
       }
-      //clear login error if it was unsuccessful during login
+      //clear login error if it was previously unsuccessful during login
       this.globalObjects.loginError = false;
-      this.globalObjects.clearFlags();
       this.router.navigateByUrl('main')
     }
    ).catch(() => {
-      this.globalObjects.clearFlags();
       this.globalObjects.loginError = true;
     });
   }
