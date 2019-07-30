@@ -49,7 +49,7 @@ export class DirectorsDetailsComponent implements OnInit {
         this.directorForm.get('firstName').setValue(this.director.firstName);
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać danych reżysera !', '')
+      this.globalObjects.openErrorSnackBar('Nie można pobrać danych reżysera !', '')
     });
   }
 
@@ -70,11 +70,11 @@ export class DirectorsDetailsComponent implements OnInit {
 
   async deleteDirectorById() {
     await this.directorService.deleteDirectorById(this.director.id).then((receivedObject: any) => {
-        this.globalObjects.openSnackBar('Reżyser został usunięty', this.director.firstName+' '+this.director.lastName);
+        this.globalObjects.openInfoSnackBar('Reżyser został usunięty', this.director.firstName+' '+this.director.lastName);
         this.router.navigateByUrl('/directors/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można usunąć reżysera, jest powiązany z filmem !', '')
+      this.globalObjects.openErrorSnackBar('Nie można usunąć reżysera, jest powiązany z filmem !', '')
     });
   }
 
@@ -96,7 +96,7 @@ export class DirectorsDetailsComponent implements OnInit {
           this.director = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można dodać reżysera !', '');
+        this.globalObjects.openErrorSnackBar('Nie można dodać reżysera !', '');
       });
 
     } else {
@@ -106,13 +106,13 @@ export class DirectorsDetailsComponent implements OnInit {
           this.director = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można zapisać reżysera !', '');
+        this.globalObjects.openErrorSnackBar('Nie można zapisać reżysera !', '');
       });
     }
     //!*********************************************************
     //for both after success
     this.router.navigateByUrl('/directors/list');
-    this.globalObjects.openSnackBar('Reżyser został zapisany', this.director.firstName+' '+this.director.lastName)
+    this.globalObjects.openInfoSnackBar('Reżyser został zapisany', this.director.firstName+' '+this.director.lastName)
   }
 
   constructor(

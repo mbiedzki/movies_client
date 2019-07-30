@@ -42,7 +42,7 @@ export class UsersListComponent implements OnInit {
       this.router.navigateByUrl('users/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy użytkowników !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
     });
   }
 

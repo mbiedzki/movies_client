@@ -47,7 +47,7 @@ export class GenresListComponent implements OnInit {
         this.router.navigateByUrl('genres/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy gatunków !', '');
     });
   }
 

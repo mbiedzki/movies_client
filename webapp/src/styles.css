@@ -18,3 +18,50 @@
 .search-spacer {
   flex: 0.01 1 auto ;
 }
+
+.mat-snack-bar-container {
+  text-align: center;
+}
+.mat-simple-snackbar {
+  display: inline-block !important;
+}
+
+.my-snack-bar-info {
+  background-color: #3F51B5;
+  color: white;
+}
+
+.my-snack-bar-error {
+  background-color: #FF0266;
+  color: white;
+}
+
+.mat-form-field--inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 100px;
+  margin-right: 80px;
+}
+
+.mat-form-field--inline .mat-form-field {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.mat-header-cell, .mat-sort-header{
+  background-color: #3F51B5;
+  color: white;
+}
+
+.mat-row:nth-child(even){
+  background-color:#EDF1F5;
+}
+
+.mat-row:nth-child(odd){
+  background-color:#FDFDFB;
+}
+
+

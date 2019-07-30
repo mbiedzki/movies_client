@@ -45,7 +45,7 @@ export class UserService {
     this.globalObjects.loggedUser = new User();
     this.globalObjects.clearAllGlobalParams();
     this.router.navigateByUrl('login')
-    this.globalObjects.openSnackBar('Użytkownik został wylogowany', '')
+    this.globalObjects.openInfoSnackBar('Użytkownik został wylogowany', '')
   }
   constructor(
     private http: HttpClient, private globalObjects: GlobalObjects, private router: Router

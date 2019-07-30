@@ -1,7 +1,7 @@
 <mat-toolbar>
 
   <!--  sekcja dla wszystkich-->
-  <button mat-button mat-raised-button [mat-menu-trigger-for]="menuMovies">Filmy</button>
+  <button mat-button mat-raised-button color="primary" [mat-menu-trigger-for]="menuMovies">Filmy</button>
   <mat-menu #menuMovies="matMenu">
     <a routerLink="/movies/list" mat-menu-item>Lista</a>
     <a routerLink="/movies/details" mat-menu-item>Nowy</a>
@@ -9,7 +9,7 @@
 
   <span class="menu-spacer"></span>
 
-  <button mat-button mat-raised-button [mat-menu-trigger-for]="menuDirectors">Reżyserzy</button>
+  <button mat-button mat-raised-button color="primary" [mat-menu-trigger-for]="menuDirectors">Reżyserzy</button>
   <mat-menu #menuDirectors="matMenu">
     <a routerLink="/directors/list" mat-menu-item>Lista</a>
     <a routerLink="/directors/details" mat-menu-item>Nowy</a>
@@ -19,7 +19,7 @@
 
   <!--  sekcja dla admina-->
   <div *ngIf="this.globalObjects.isAdmin">
-    <button mat-button mat-raised-button [mat-menu-trigger-for]="menuGenres">Gatunki</button>
+    <button mat-button mat-raised-button color="primary" [mat-menu-trigger-for]="menuGenres">Gatunki</button>
     <mat-menu #menuGenres="matMenu">
       <a routerLink="/genres/list" mat-menu-item>Lista</a>
       <a routerLink="/genres/details" mat-menu-item>Nowy</a>
@@ -27,7 +27,7 @@
   </div>
   <span class="menu-spacer"></span>
   <div *ngIf="this.globalObjects.isAdmin">
-    <button mat-button mat-raised-button [mat-menu-trigger-for]="menuUsers">Użytkownicy</button>
+    <button mat-button mat-raised-button color="primary" [mat-menu-trigger-for]="menuUsers">Użytkownicy</button>
     <mat-menu #menuUsers="matMenu">
       <a routerLink="/users/list" mat-menu-item>Lista</a>
       <a routerLink="/users/details" mat-menu-item>Nowy</a>
@@ -36,7 +36,7 @@
 
   <!--  sekcja dla wszystkich-->
   <span class="header-spacer"></span>
-  <button mat-button mat-raised-button *ngIf="this.globalObjects.loggedUser.id > 0"
+  <button mat-button mat-raised-button color="primary" *ngIf="this.globalObjects.loggedUser.id > 0"
     (click)="this.userService.logOut()">Wyloguj: {{this.globalObjects.loggedUser.name}}</button>
 </mat-toolbar>
 

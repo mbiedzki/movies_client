@@ -57,7 +57,7 @@ export class UsersDetailsComponent implements OnInit {
         this.userForm.get('isAdmin').setValue(this.globalObjects.isUserAdmin(this.user));
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać użytkownika!', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać użytkownika!', '');
     });
   }
   deleteUserConfirm(): void {
@@ -75,11 +75,11 @@ export class UsersDetailsComponent implements OnInit {
 
   async deleteUserById() {
       await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
-          this.globalObjects.openSnackBar('Użytkownik został usunięty', this.user.name);
+          this.globalObjects.openInfoSnackBar('Użytkownik został usunięty', this.user.name);
           this.router.navigateByUrl('/users/list')
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można usunąć użytkownika !', '');
+        this.globalObjects.openErrorSnackBar('Nie można usunąć użytkownika !', '');
       });
     await this.getCurrentUsersNames();
     this.userForm.updateValueAndValidity();
@@ -104,7 +104,7 @@ export class UsersDetailsComponent implements OnInit {
           this.user = receivedUser;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można dodać użytkownika !', '');
+        this.globalObjects.openErrorSnackBar('Nie można dodać użytkownika !', '');
       });
 
     } else {
@@ -126,14 +126,14 @@ export class UsersDetailsComponent implements OnInit {
           this.user = receivedUser;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można zapisać użytkownika !', '');
+        this.globalObjects.openErrorSnackBar('Nie można zapisać użytkownika !', '');
       });
     }
     //*********************************************************
     //for both after success
 
     this.router.navigateByUrl('/users/list');
-    this.globalObjects.openSnackBar('Użytkownik został zapisany', this.user.name)
+    this.globalObjects.openInfoSnackBar('Użytkownik został zapisany', this.user.name)
   }
 
   addUserRole() {
@@ -169,7 +169,7 @@ export class UsersDetailsComponent implements OnInit {
           this.globalObjects.currentLength = receivedPage.totalPages;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można pobrać listy użytkowników !', '');
+        this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
       });
       //get all users
       await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedPage: ServerPage) => {
@@ -177,7 +177,7 @@ export class UsersDetailsComponent implements OnInit {
         this.globalObjects.usersInDb = receivedPage.content;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można pobrać listy użytkowników !', '');
+        this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
       });
     }
 

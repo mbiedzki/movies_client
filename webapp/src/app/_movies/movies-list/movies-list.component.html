@@ -3,27 +3,29 @@
 <div>
   <mat-card style="text-align: center">
     <form [formGroup]="searchForm" (ngSubmit)="getFilteredData()">
+      <li class="mat-form-field--inline">
       <mat-form-field>
-        <input matInput type="text" style="width: 20%" formControlName="title" placeholder="Tytuł">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
-      <span class="search-spacer"></span>
-      <mat-form-field>
-        <input matInput type="text" style="width: 20%" formControlName="directorLastName" placeholder="Nazwisko reżysera">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
-      <span></span>
-      <mat-form-field>
-        <input matInput type="text" style="width: 20%" formControlName="year" placeholder="Rok">
+        <input matInput type="text" formControlName="title" placeholder="Tytuł">
         <mat-hint>podaj kilka znaków</mat-hint>
       </mat-form-field>
       <mat-form-field>
-        <input matInput type="text" style="width: 20%" formControlName="genreName" placeholder="Gatunek">
+        <input matInput type="text" formControlName="directorLastName" placeholder="Nazwisko reżysera">
         <mat-hint>podaj kilka znaków</mat-hint>
       </mat-form-field>
+      </li>
+      <li class="mat-form-field--inline">
+      <mat-form-field>
+        <input matInput type="text" formControlName="year" placeholder="Rok">
+        <mat-hint>podaj kilka znaków</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text"  formControlName="genreName" placeholder="Gatunek">
+        <mat-hint>podaj kilka znaków</mat-hint>
+      </mat-form-field>
+      </li>
       <mat-card-actions>
         <div class="app-button-row">
-          <button type="submit "mat-raised-button color="primary">Filtruj</button><br/><br/>
+          <button type="submit "mat-raised-button color="primary">Wyszukaj</button><br/><br/>
         </div>
       </mat-card-actions>
     </form>

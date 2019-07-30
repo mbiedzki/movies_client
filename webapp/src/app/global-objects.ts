@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {User} from "./users/user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material";
 import {Genre} from "./_genres/genre";
 import {Director} from "./_directors/director";
 import {Movie} from "./_movies/movie";
@@ -135,15 +135,23 @@ export class GlobalObjects {
   //************************************************************************************************
 
   //snack bar messaging
-  public openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3000,
+    public openInfoSnackBar(message: string, action: string) {
+    this.snackBar.open(message, '', {
+      duration: 5000,
+      panelClass: ['my-snack-bar-info'],
     });
   }
+  public openErrorSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      panelClass: ['my-snack-bar-error'],
+    });
+  }
+
   //************************************************************************************************
 
   constructor(
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
   ) { }
 }

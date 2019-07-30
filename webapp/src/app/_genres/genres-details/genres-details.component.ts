@@ -43,7 +43,7 @@ export class GenresDetailsComponent implements OnInit {
         this.genreForm.get('genreName').setValue(this.genre.genreName);
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać gatunku !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać gatunku !', '');
     });
   }
 
@@ -64,11 +64,11 @@ export class GenresDetailsComponent implements OnInit {
 
   async deleteGenreById() {
     await this.genreService.deleteGenreById(this.genre.id).then((receivedObject: any) => {
-        this.globalObjects.openSnackBar('Gatunek został usunięty', this.genre.genreName);
+        this.globalObjects.openInfoSnackBar('Gatunek został usunięty', this.genre.genreName);
         this.router.navigateByUrl('/genres/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można usunąć gatunku, jest powiązany z filmem, usuń najpierw film!', '');
+      this.globalObjects.openErrorSnackBar('Nie można usunąć gatunku, jest powiązany z filmem, usuń najpierw film!', '');
     });
   }
 
@@ -89,7 +89,7 @@ export class GenresDetailsComponent implements OnInit {
           this.genre = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można dodać gatunku !', '');
+        this.globalObjects.openErrorSnackBar('Nie można dodać gatunku !', '');
       });
 
     } else {
@@ -99,13 +99,13 @@ export class GenresDetailsComponent implements OnInit {
           this.genre = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można zapisać gatunku !', '');
+        this.globalObjects.openErrorSnackBar('Nie można zapisać gatunku !', '');
       });
     }
     //!*********************************************************
     //for both after success
     this.router.navigateByUrl('/genres/list');
-    this.globalObjects.openSnackBar('Gatunek został zapisany', this.genre.genreName)
+    this.globalObjects.openInfoSnackBar('Gatunek został zapisany', this.genre.genreName)
   }
 
   constructor(

@@ -70,7 +70,7 @@ export class MoviesDetailsComponent implements OnInit {
 
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać filmu !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać filmu !', '');
     });
   }
 
@@ -91,11 +91,11 @@ export class MoviesDetailsComponent implements OnInit {
 
   async deleteMovieById() {
     await this.movieService.deleteMovieById(this.movie.id).then((receivedObject: any) => {
-        this.globalObjects.openSnackBar('Film został usunięty', this.movie.title);
+        this.globalObjects.openInfoSnackBar('Film został usunięty', this.movie.title);
         this.router.navigateByUrl('/movies/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można usunąć filmu !', '');
+      this.globalObjects.openErrorSnackBar('Nie można usunąć filmu !', '');
     });
   }
 
@@ -136,7 +136,7 @@ export class MoviesDetailsComponent implements OnInit {
           this.movie = receivedObject;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można dodać filmu !', '');
+        this.globalObjects.openErrorSnackBar('Nie można dodać filmu !', '');
       });
 
     } else {
@@ -146,14 +146,14 @@ export class MoviesDetailsComponent implements OnInit {
           this.movie = receivedMovie;
         }
       ).catch(() => {
-        this.globalObjects.openSnackBar('Nie można zapisać filmu !', '');
+        this.globalObjects.openErrorSnackBar('Nie można zapisać filmu !', '');
       });
     }
     //!*********************************************************
     //for both after success
     this.globalObjects.clearGlobalCurrentMovie();
     this.router.navigateByUrl('/movies/list');
-    this.globalObjects.openSnackBar('Film został zapisany', this.movie.title)
+    this.globalObjects.openInfoSnackBar('Film został zapisany', this.movie.title)
   }
 
 
@@ -164,7 +164,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy reżyserów !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
     });
     //get all users
     await this.directorService.getDirectorsByParams('', '', 0, this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
@@ -172,7 +172,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.directorsInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy reżyserów !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
     });
   }
 
@@ -183,7 +183,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy gatunków !', '');
     });
     //get all users
     await this.genreService.getGenresByParams('', 0, this.globalObjects.currentLength * 10, 'genreName').then((receivedPage: ServerPage) => {
@@ -191,7 +191,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.genresInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy gatunków !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy gatunków !', '');
     });
   }
 
@@ -202,7 +202,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy filmów !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy filmów !', '');
     });
     //get all users
     await this.movieService.getMoviesByParams('', '', '', '', 0, this.globalObjects.currentLength * 10, 'title', 'asc').then((receivedPage: ServerPage) => {
@@ -210,7 +210,7 @@ export class MoviesDetailsComponent implements OnInit {
         this.globalObjects.moviesInDb = receivedPage.content;
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy filmów !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy filmów !', '');
     });
   }
 
@@ -229,18 +229,19 @@ export class MoviesDetailsComponent implements OnInit {
     await this.getCurrentDirectorsList();
     await this.getCurrentGenresList();
     await this.getCurrentMoviesList();
-    this.movieForm.get('title').setValue(this.globalObjects.currentTitle);
-    this.movieForm.get('year').setValue(this.globalObjects.currentYear);
-    this.movieForm.get('director').setValue(this.globalObjects.currentDirector);
-    this.movieForm.get('genres').setValue(this.globalObjects.currentGenres);
-    this.movieForm.get('description').setValue(this.globalObjects.currentDescription);
-    this.movieForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       await this.getMovieById(parseInt(id));
       this.isNew = false;
+      this.globalObjects.clearGlobalCurrentMovie();
     } else {
       this.isNew = true;
+      this.movieForm.get('title').setValue(this.globalObjects.currentTitle);
+      this.movieForm.get('year').setValue(this.globalObjects.currentYear);
+      this.movieForm.get('director').setValue(this.globalObjects.currentDirector);
+      this.movieForm.get('genres').setValue(this.globalObjects.currentGenres);
+      this.movieForm.get('description').setValue(this.globalObjects.currentDescription);
+      this.movieForm.updateValueAndValidity();
     }
   }
 }

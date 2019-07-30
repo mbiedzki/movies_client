@@ -49,7 +49,7 @@ export class DirectorsListComponent implements OnInit {
         this.router.navigateByUrl('directors/list')
       }
     ).catch(() => {
-      this.globalObjects.openSnackBar('Nie można pobrać listy reżyserów !', '');
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
     });
   }
 
