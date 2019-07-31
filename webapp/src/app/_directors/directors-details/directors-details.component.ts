@@ -16,6 +16,8 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
+import {forbiddenTitleValidator} from "../../validators/forbidden-title.directive";
+import {forbiddenLastNameValidator} from "../../validators/forbidden-last-name.directive";
 
 @Component({
   selector: 'app-directors-details',
@@ -31,6 +33,7 @@ export class DirectorsDetailsComponent implements OnInit {
     {
       lastName: new FormControl('', [
         Validators.required,
+        forbiddenLastNameValidator(this.globalObjects.directorsInDb),
       ]),
       firstName: new FormControl('', [
         Validators.required,
@@ -114,6 +117,24 @@ export class DirectorsDetailsComponent implements OnInit {
     this.router.navigateByUrl('/directors/list');
     this.globalObjects.openInfoSnackBar('Reżyser został zapisany', this.director.firstName+' '+this.director.lastName)
   }
+  async getCurrentDirectorsList() {
+    //get size of directors table from server
+    await this.directorService.getDirectorsByParams('', '', 0, 10, 'lastName').then((receivedPage: ServerPage) => {
+        //set current page and size
+        this.globalObjects.currentLength = receivedPage.totalPages;
+      }
+    ).catch(() => {
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
+    });
+    //get all users
+    await this.directorService.getDirectorsByParams('', '', 0, this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
+        //write to array of users
+        this.globalObjects.directorsInDb = receivedPage.content;
+      }
+    ).catch(() => {
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
+    });
+  }
 
   constructor(
     private directorService: DirectorService,
@@ -125,6 +146,7 @@ export class DirectorsDetailsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.getCurrentDirectorsList();
     this.directorForm.updateValueAndValidity();
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {

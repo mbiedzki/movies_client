@@ -34,6 +34,7 @@ import {
 } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { DirectorsListComponent } from './_directors/directors-list/directors-list.component';
 import { ForbiddenTitleValidatorDirective } from './validators/forbidden-title.directive';
+import { ForbiddenLastNameValidatorDirective } from './validators/forbidden-last-name.directive';
 
 
 
@@ -57,6 +58,7 @@ import { ForbiddenTitleValidatorDirective } from './validators/forbidden-title.d
     ConfirmationDialogComponent,
     DirectorsListComponent,
     ForbiddenTitleValidatorDirective,
+    ForbiddenLastNameValidatorDirective,
 
 
   ],

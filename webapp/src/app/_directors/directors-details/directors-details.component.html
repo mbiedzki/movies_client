@@ -10,6 +10,7 @@
     <mat-form-field style="width: 30%">
       <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher" placeholder="Nazwisko">
       <mat-error *ngIf="directorForm.controls['lastName'].hasError('required')">Pole nie może być puste !</mat-error>
+      <mat-error *ngIf="directorForm.controls['lastName'].hasError('forbiddenLastName')&&(this.isNew)">To nazwisko nie może być użyte !</mat-error>
     </mat-form-field><br/>
 
     <mat-form-field style="width: 30%">
