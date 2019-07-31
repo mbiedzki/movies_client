@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,6 +18,10 @@ import {
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 import {forbiddenTitleValidator} from "../../validators/forbidden-title.directive";
 import {forbiddenLastNameValidator} from "../../validators/forbidden-last-name.directive";
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-directors-details',

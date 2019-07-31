@@ -62,10 +62,10 @@ export class GlobalObjects {
   //************************************************************************************************
 
   //global tables for selection and validation
-  usersInDb: Array<User> = new Array<User>();
-  genresInDb: Array<Genre> = new Array<Genre>();
-  directorsInDb: Array<Director> = new Array<Director>();
-  moviesInDb: Array<Movie> = new Array<Movie>();
+  usersInDb: Array<User> = [];
+  genresInDb: Array<Genre> = [];
+  directorsInDb: Array<Director> = [];
+  moviesInDb: Array<Movie> = [];
 
   //************************************************************************************************
 

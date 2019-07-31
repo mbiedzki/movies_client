@@ -4,6 +4,8 @@ import {UserService} from "../users/user.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {GlobalObjects} from "../global-objects";
 import {Router} from "@angular/router";
+import {ServerPage} from "../http-services/server-page";
+import {DirectorService} from "../_directors/director.service";
 
 @Component({
   selector: 'app-login',
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService, private globalObjects: GlobalObjects, private router: Router,
+    private directorService: DirectorService,
   ) { }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,6 +19,10 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-users-details',

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,6 +19,10 @@ import {
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
 import {forbiddenTitleValidator} from "../../validators/forbidden-title.directive";
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-movies-details',
