@@ -16,8 +16,7 @@ export class MainPageComponent implements OnInit {
     private directors: DirectorsDetailsComponent,
     private movies: MoviesDetailsComponent,
     private users: UsersDetailsComponent,
-  ) {
-  }
+  ) {}
 
 //get lists for validators
   async ngOnInit() {
