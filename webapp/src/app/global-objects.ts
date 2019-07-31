@@ -124,6 +124,13 @@ export class GlobalObjects {
     this.currentGenres = [];
   }
 
+  public clearGlobalPaging() {
+    this.currentPage = 0;
+    this.currentSize = 10;
+    this.currentSortActive = '';
+    this.currentSortOrder = '';
+  }
+
   //global function to clear current movie
   public clearGlobalCurrentMovie() {
     this.currentTitle = '';

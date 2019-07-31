@@ -36,6 +36,7 @@ export class MoviesListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.globalObjects.clearGlobalPaging();
     this.searchForm.get('title').setValue(this.globalObjects.filterTitle);
     this.searchForm.get('directorLastName').setValue(this.globalObjects.filterDirector);
     this.searchForm.get('year').setValue(this.globalObjects.filterYear);
