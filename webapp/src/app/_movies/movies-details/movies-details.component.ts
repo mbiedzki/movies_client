@@ -17,7 +17,6 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
 } from "../../shared/confirmation-dialog/confirmation-dialog.component";
-import {forbiddenNameValidator} from "../../validators/forbidden-name-directive";
 import {forbiddenTitleValidator} from "../../validators/forbidden-title.directive";
 
 @Injectable({
@@ -88,7 +87,7 @@ export class MoviesDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        this.deleteMovieById();
+        this.deleteMovieById().then();
       }
     });
   }
@@ -110,32 +109,32 @@ export class MoviesDetailsComponent implements OnInit {
       this.movie = new Movie();
       this.movie.id = null;
     }
-      //get title from form
-      this.movie.title = this.movieForm.get('title').value;
-      //get director with id received from the form
-      for (let i = 0; i < this.globalObjects.directorsInDb.length; i++) {
-        if (this.movieForm.get('director').value == this.globalObjects.directorsInDb[i].id) {
-          this.movie.director = this.globalObjects.directorsInDb[i];
+    //get title from form
+    this.movie.title = this.movieForm.get('title').value;
+    //get director with id received from the form
+    for (let i = 0; i < this.globalObjects.directorsInDb.length; i++) {
+      if (this.movieForm.get('director').value == this.globalObjects.directorsInDb[i].id) {
+        this.movie.director = this.globalObjects.directorsInDb[i];
+      }
+    }
+    //get year from the form
+    this.movie.year = this.movieForm.get('year').value;
+    //get genres with ids received from the form
+    this.genresTemporaryArray = [];
+    this.movie.genres = [];
+    for (let i = 0; i < this.movieForm.get('genres').value.length; i++) {
+      for (let j = 0; j < this.globalObjects.genresInDb.length; j++) {
+        if (this.movieForm.get('genres').value[i] == this.globalObjects.genresInDb[j].id) {
+          this.movie.genres.push(this.globalObjects.genresInDb[j]);
         }
       }
-      //get year from the form
-      this.movie.year = this.movieForm.get('year').value;
-      //get genres with ids received from the form
-      this.genresTemporaryArray = [];
-      this.movie.genres = [];
-      for (let i = 0; i < this.movieForm.get('genres').value.length; i++) {
-        for (let j = 0; j < this.globalObjects.genresInDb.length; j++) {
-          if (this.movieForm.get('genres').value[i] == this.globalObjects.genresInDb[j].id) {
-            this.movie.genres.push(this.globalObjects.genresInDb[j]);
-          }
-        }
-      }
-      //get description from the form
-      this.movie.description = this.movieForm.get('description').value;
+    }
+    //get description from the form
+    this.movie.description = this.movieForm.get('description').value;
 
     //!*********************************************************
     //for new
-    if(this.isNew == true) {
+    if (this.isNew == true) {
       await this.movieService.addMovie(this.movie).then((receivedObject: Movie) => {
           this.movie = receivedObject;
         }
@@ -156,7 +155,7 @@ export class MoviesDetailsComponent implements OnInit {
     //!*********************************************************
     //for both after success
     this.globalObjects.clearGlobalCurrentMovie();
-    this.router.navigateByUrl('/movies/list');
+    await this.router.navigateByUrl('/movies/list');
     this.globalObjects.openInfoSnackBar('Film został zapisany', this.movie.title)
   }
 
@@ -170,9 +169,9 @@ export class MoviesDetailsComponent implements OnInit {
     ).catch(() => {
       this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
     });
-    //get all users
+    //get all directors
     await this.directorService.getDirectorsByParams('', '', 0, this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
-        //write to array of users
+        //write to array of directors
         this.globalObjects.directorsInDb = receivedPage.content;
       }
     ).catch(() => {
@@ -189,9 +188,9 @@ export class MoviesDetailsComponent implements OnInit {
     ).catch(() => {
       this.globalObjects.openErrorSnackBar('Nie można pobrać listy gatunków !', '');
     });
-    //get all users
+    //get all genres
     await this.genreService.getGenresByParams('', 0, this.globalObjects.currentLength * 10, 'genreName').then((receivedPage: ServerPage) => {
-        //write to array of users
+        //write to array of genres
         this.globalObjects.genresInDb = receivedPage.content;
       }
     ).catch(() => {
@@ -200,7 +199,7 @@ export class MoviesDetailsComponent implements OnInit {
   }
 
   async getCurrentMoviesList() {
-    //get size of genres table from server
+    //get size of movies table from server
     await this.movieService.getMoviesByParams('', '', '', '', 0, 10, 'title', 'asc').then((receivedPage: ServerPage) => {
         //set current page and size
         this.globalObjects.currentLength = receivedPage.totalPages;
@@ -208,9 +207,9 @@ export class MoviesDetailsComponent implements OnInit {
     ).catch(() => {
       this.globalObjects.openErrorSnackBar('Nie można pobrać listy filmów !', '');
     });
-    //get all users
+    //get all movies
     await this.movieService.getMoviesByParams('', '', '', '', 0, this.globalObjects.currentLength * 10, 'title', 'asc').then((receivedPage: ServerPage) => {
-        //write to array of users
+        //write to array of movies
         this.globalObjects.moviesInDb = receivedPage.content;
       }
     ).catch(() => {

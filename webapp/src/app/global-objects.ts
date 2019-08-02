@@ -12,9 +12,10 @@ import {Movie} from "./_movies/movie";
   }
 )
 export class GlobalObjects {
+  //TODO: for production all these urls have to be changed to server context
   //urls
   //users
-  readonly userByNameUrl = 'http://localhost:8080/users/findOne?name=';
+  readonly userByNameUrl = 'http://localhost:8080/findUser?name=';
   readonly userByIdUrl = 'http://localhost:8080/users/';
   readonly usersByParamsUrl = 'http://localhost:8080/users';
   //************************************************************************************************
@@ -131,7 +132,7 @@ export class GlobalObjects {
     this.currentSortOrder = '';
   }
 
-  //global function to clear current movie
+  //global function to clear current movie after saving
   public clearGlobalCurrentMovie() {
     this.currentTitle = '';
     this.currentYear = '';
@@ -143,7 +144,7 @@ export class GlobalObjects {
 
   //snack bar messaging
     public openInfoSnackBar(message: string, action: string) {
-    this.snackBar.open(message, '', {
+    this.snackBar.open(message, action, {
       duration: 5000,
       panelClass: ['my-snack-bar-info'],
     });

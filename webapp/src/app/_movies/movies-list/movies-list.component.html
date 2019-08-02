@@ -4,28 +4,29 @@
   <mat-card style="text-align: center">
     <form [formGroup]="searchForm" (ngSubmit)="getFilteredData()">
       <li class="mat-form-field--inline">
-      <mat-form-field>
-        <input matInput type="text" formControlName="title" placeholder="Tytuł">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" formControlName="directorLastName" placeholder="Nazwisko reżysera">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="title" placeholder="Tytuł">
+          <mat-hint>podaj kilka znaków</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="directorLastName" placeholder="Nazwisko reżysera">
+          <mat-hint>podaj kilka znaków</mat-hint>
+        </mat-form-field>
       </li>
       <li class="mat-form-field--inline">
-      <mat-form-field>
-        <input matInput type="text" formControlName="year" placeholder="Rok">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text"  formControlName="genreName" placeholder="Gatunek">
-        <mat-hint>podaj kilka znaków</mat-hint>
-      </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="year" placeholder="Rok">
+          <mat-hint>podaj kilka znaków</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="genreName" placeholder="Gatunek">
+          <mat-hint>podaj kilka znaków</mat-hint>
+        </mat-form-field>
       </li>
       <mat-card-actions>
         <div class="app-button-row">
-          <button type="submit "mat-raised-button color="primary">Wyszukaj</button><br/><br/>
+          <button type="submit " mat-raised-button color="primary">Wyszukaj</button>
+          <br/><br/>
         </div>
       </mat-card-actions>
     </form>
@@ -37,27 +38,28 @@
   <mat-table [dataSource]="currentList" matSort matSortDisableClear="true" (matSortChange)="getNewSortData($event)">
 
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Tytuł </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tytuł</mat-header-cell>
       <mat-cell *matCellDef="let movie"> {{movie.title}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="directorLastName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Reżyser </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Reżyser</mat-header-cell>
       <mat-cell *matCellDef="let movie">{{movie.director.firstName}} {{movie.director.lastName}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="year">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Rok produkcji </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Rok produkcji</mat-header-cell>
       <mat-cell *matCellDef="let movie"> {{movie.year}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="genres">
-      <mat-header-cell *matHeaderCellDef> Gatunek </mat-header-cell>
-      <mat-cell *matCellDef="let movie"> <span *ngFor="let genre of movie.genres">{{genre.genreName}}, </span></mat-cell>
+      <mat-header-cell *matHeaderCellDef> Gatunek</mat-header-cell>
+      <mat-cell *matCellDef="let movie"><span *ngFor="let genre of movie.genres">{{genre.genreName}},&nbsp;</span></mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let movie; columns: columnsToDisplay" [routerLink]="'/movies/details/'+movie.id" class="mat-row-link"></mat-row>
+    <mat-row *matRowDef="let movie; columns: columnsToDisplay" [routerLink]="'/movies/details/'+movie.id"
+             class="mat-row-link"></mat-row>
 
   </mat-table>
 

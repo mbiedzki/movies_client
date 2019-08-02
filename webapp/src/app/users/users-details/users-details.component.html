@@ -2,41 +2,56 @@
 <app-menu></app-menu>
 
 
-  <mat-card style="text-align: center;">
+<mat-card style="text-align: center;">
 
-    <mat-card-title>Dane użytkownika</mat-card-title><br/><br/>
+  <mat-card-title>Dane użytkownika</mat-card-title>
+  <br/><br/>
 
-    <form [formGroup]="userForm">
+  <form [formGroup]="userForm">
 
-      <mat-form-field style="width: 30%">
-        <input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher" placeholder="Nazwa użytkownika">
-        <mat-error *ngIf="userForm.controls['name'].hasError('required')&&(this.isNew)">Pole nie może być puste !</mat-error>
-        <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')&&(this.isNew)">Ta nazwa nie może być użyta !</mat-error>
-      </mat-form-field><br/><br/>
+    <mat-form-field style="width: 30%">
+      <input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher"
+             placeholder="Nazwa użytkownika">
+      <mat-error *ngIf="userForm.controls['name'].hasError('required')&&(this.isNew)">Pole nie może być puste !
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')&&(this.isNew)">Ta nazwa nie może być użyta
+        !
+      </mat-error>
+    </mat-form-field>
+    <br/><br/>
 
-      <mat-form-field style="width: 30%">
-        <input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher" placeholder="Nowe hasło">
-        <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(this.isNew)">Pole nie może być puste !</mat-error>
-        <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków bez zmiany hasła!</mat-error>
-        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(this.isNew)">Minimum 4 znaki</mat-error>
-        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków bez zmiany hasła!</mat-error>
-      </mat-form-field><br/><br/><br/>
+    <mat-form-field style="width: 30%">
+      <input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher"
+             placeholder="Nowe hasło">
+      <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(this.isNew)">Pole nie może być puste !
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków
+        bez zmiany hasła!
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(this.isNew)">Minimum 4 znaki</mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('minlength')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków
+        bez zmiany hasła!
+      </mat-error>
+    </mat-form-field>
+    <br/><br/><br/>
 
-      <mat-toolbar-row style="justify-content: center">
+    <mat-toolbar-row style="justify-content: center">
       <mat-checkbox #active formControlName="active">Aktywny</mat-checkbox>
       <span class="menu-spacer"></span>
-      <mat-checkbox #isAdmin formControlName="isAdmin">Administrator</mat-checkbox><br/><br/>
-      </mat-toolbar-row>
+      <mat-checkbox #isAdmin formControlName="isAdmin">Administrator</mat-checkbox>
+      <br/><br/>
+    </mat-toolbar-row>
 
-      <mat-card-actions>
-          <button mat-raised-button [disabled]="(!userForm.valid)&&(this.isNew)"(click)="saveUser()" color="primary">
-            <span *ngIf="this.isNew">Dodaj</span>
-            <span *ngIf="!this.isNew">Zapisz</span>
-          </button>
-          <span class="checkbox-spacer"></span>
-          <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserConfirm()" color="accent">Usuń</button><br/><br/>
-      </mat-card-actions>
+    <mat-card-actions>
+      <button mat-raised-button [disabled]="(!userForm.valid)&&(this.isNew)" (click)="saveUser()" color="primary">
+        <span *ngIf="this.isNew">Dodaj</span>
+        <span *ngIf="!this.isNew">Zapisz</span>
+      </button>
+      <span class="checkbox-spacer"></span>
+      <button *ngIf="!this.isNew" mat-raised-button (click)="deleteUserConfirm()" color="accent">Usuń</button>
+      <br/><br/>
+    </mat-card-actions>
 
-    </form>
-  </mat-card>
+  </form>
+</mat-card>
 

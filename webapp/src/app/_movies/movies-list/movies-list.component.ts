@@ -1,10 +1,10 @@
-import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../../global-objects";
-import{Router} from "@angular/router";
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
+import {Router} from "@angular/router";
+import {MatPaginator, MatSort, PageEvent, Sort} from "@angular/material";
 import {Movie} from "../movie";
 import {MovieService} from "../movie.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,8 @@ export class MoviesListComponent implements OnInit {
     private movieService: MovieService,
     private globalObjects: GlobalObjects,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   async ngOnInit() {
     this.globalObjects.clearGlobalPaging();
@@ -61,20 +62,22 @@ export class MoviesListComponent implements OnInit {
     });
   }
 
-  getNewPageData(event?:PageEvent) {
+  getNewPageData(event?: PageEvent) {
     this.globalObjects.currentPage = event.pageIndex;
     this.globalObjects.currentSize = event.pageSize;
     this.getMoviesList(this.globalObjects.filterTitle, this.globalObjects.filterDirector,
       this.globalObjects.filterYear, this.globalObjects.filterGenreName, this.globalObjects.currentPage, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
-      this.globalObjects.currentSortOrder);
+      this.globalObjects.currentSortOrder).then();
   }
+
   getNewSortData(sort: Sort) {
     this.globalObjects.currentSortActive = sort.active;
     this.globalObjects.currentSortOrder = sort.direction;
     this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
       this.searchForm.get('year').value, this.globalObjects.filterGenreName, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
-      this.globalObjects.currentSortOrder)
+      this.globalObjects.currentSortOrder).then()
   }
+
   getFilteredData() {
     this.globalObjects.filterTitle = this.searchForm.get('title').value;
     this.globalObjects.filterDirector = this.searchForm.get('directorLastName').value;
@@ -82,6 +85,6 @@ export class MoviesListComponent implements OnInit {
     this.globalObjects.filterGenreName = this.searchForm.get('genreName').value;
     this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
       this.searchForm.get('year').value, this.globalObjects.filterGenreName, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
-      this.globalObjects.currentSortOrder)
+      this.globalObjects.currentSortOrder).then()
   }
 }

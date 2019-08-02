@@ -9,8 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ErrorStateMatcher, MatDialog, ShowOnDirtyErrorStateMatcher} from "@angular/material";
 import {MyErrorStateMatcher} from "../../validators/my-error-state-matcher";
 import {Genre} from "../genre";
-import {GenreService} from "../../_genres/genre.service";
-import {ServerPage} from "../../http-services/server-page";
+import {GenreService} from "../genre.service";
 import {
   ConfirmationDialogComponent,
   ConfirmDialogModel
@@ -57,7 +56,7 @@ export class GenresDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        this.deleteGenreById();
+        this.deleteGenreById().then();
       }
     });
   }
@@ -68,7 +67,7 @@ export class GenresDetailsComponent implements OnInit {
         this.router.navigateByUrl('/genres/list')
       }
     ).catch(() => {
-      this.globalObjects.openErrorSnackBar('Nie można usunąć gatunku, jest powiązany z filmem, usuń najpierw film!', '');
+      this.globalObjects.openErrorSnackBar('Nie można usunąć gatunku, jest powiązany z co najmniej jednym filmem !', '');
     });
   }
 
@@ -104,7 +103,7 @@ export class GenresDetailsComponent implements OnInit {
     }
     //!*********************************************************
     //for both after success
-    this.router.navigateByUrl('/genres/list');
+    await this.router.navigateByUrl('/genres/list');
     this.globalObjects.openInfoSnackBar('Gatunek został zapisany', this.genre.genreName)
   }
 

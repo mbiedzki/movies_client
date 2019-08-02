@@ -64,6 +64,7 @@ export class UsersDetailsComponent implements OnInit {
       this.globalObjects.openErrorSnackBar('Nie można pobrać użytkownika!', '');
     });
   }
+
   deleteUserConfirm(): void {
     const message = `Czy na pewno chesz usunąć ?`;
     const dialogData = new ConfirmDialogModel("Potwierdź", message);
@@ -73,18 +74,20 @@ export class UsersDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult) {this.deleteUserById();}
+      if (dialogResult) {
+        this.deleteUserById().then();
+      }
     });
   }
 
   async deleteUserById() {
-      await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
-          this.globalObjects.openInfoSnackBar('Użytkownik został usunięty', this.user.name);
-          this.router.navigateByUrl('/users/list')
-        }
-      ).catch(() => {
-        this.globalObjects.openErrorSnackBar('Nie można usunąć użytkownika !', '');
-      });
+    await this.userService.deleteUserById(this.user.id).then((receivedObject: any) => {
+        this.globalObjects.openInfoSnackBar('Użytkownik został usunięty', this.user.name);
+        this.router.navigateByUrl('/users/list')
+      }
+    ).catch(() => {
+      this.globalObjects.openErrorSnackBar('Nie można usunąć użytkownika !', '');
+    });
     await this.getCurrentUsersNames();
     this.userForm.updateValueAndValidity();
   }
@@ -117,7 +120,7 @@ export class UsersDetailsComponent implements OnInit {
       //for update
       this.user.name = this.userForm.get('name').value;
       this.user.password = this.userForm.get('password').value;
-      //if there was no new password then set empty for api to not change it
+      //if there was no new password input in the form then set empty for Server API to know not change it
       if (this.user.password == null) {
         this.user.password = '';
       }
@@ -136,10 +139,11 @@ export class UsersDetailsComponent implements OnInit {
     //*********************************************************
     //for both after success
 
-    this.router.navigateByUrl('/users/list');
+    await this.router.navigateByUrl('/users/list');
     this.globalObjects.openInfoSnackBar('Użytkownik został zapisany', this.user.name)
   }
 
+  //TODO: if role id will change in db it will not work, should find role id from db
   addUserRole() {
     this.roleToBeAdded = new Role();
     this.roleToBeAdded.id = 1;
@@ -147,6 +151,7 @@ export class UsersDetailsComponent implements OnInit {
     this.user.roles.push(this.roleToBeAdded);
   }
 
+  //TODO: if role id will change in db it will not work, should find role id from db
   addAdminRole() {
     this.roleToBeAdded = new Role();
     this.roleToBeAdded.id = 2;
@@ -157,6 +162,9 @@ export class UsersDetailsComponent implements OnInit {
   removeAdminRole() {
     this.user.roles = this.user.roles.filter(item => item.role != 'ROLE_ADMIN')
   }
+
+  //for existing user we do not validate password as required, because user may leave it empty if he does not want to change it
+  //but if he inputs anything in form then we validate length
   setUserValidators() {
     const passwordControl = this.userForm.get('password');
 
@@ -166,24 +174,25 @@ export class UsersDetailsComponent implements OnInit {
       passwordControl.setValidators([Validators.minLength(4)]);
     }
   }
-    async getCurrentUsersNames() {
-      //get size of users table from server
-      await this.userService.getUsersByParams('', 0, 10).then((receivedPage: ServerPage) => {
-          //set current page and size
-          this.globalObjects.currentLength = receivedPage.totalPages;
-        }
-      ).catch(() => {
-        this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
-      });
-      //get all users
-      await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength*10).then((receivedPage: ServerPage) => {
-          //write to array of users
+
+  async getCurrentUsersNames() {
+    //get size of users table from server
+    await this.userService.getUsersByParams('', 0, 10).then((receivedPage: ServerPage) => {
+        //set current page and size
+        this.globalObjects.currentLength = receivedPage.totalPages;
+      }
+    ).catch(() => {
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
+    });
+    //get all users
+    await this.userService.getUsersByParams('', 0, this.globalObjects.currentLength * 10).then((receivedPage: ServerPage) => {
+        //write to array of users
         this.globalObjects.usersInDb = receivedPage.content;
-        }
-      ).catch(() => {
-        this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
-      });
-    }
+      }
+    ).catch(() => {
+      this.globalObjects.openErrorSnackBar('Nie można pobrać listy użytkowników !', '');
+    });
+  }
 
   constructor(
     private userService: UserService,

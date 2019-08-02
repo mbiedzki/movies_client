@@ -61,18 +61,18 @@ export class DirectorsListComponent implements OnInit {
     this.globalObjects.currentSize = event.pageSize;
     this.getDirectorsList(this.globalObjects.filterDirLastName, this.globalObjects.filterDirFirstName,
       this.globalObjects.currentPage, this.globalObjects.currentSize,
-      this.globalObjects.currentSortActive)
+      this.globalObjects.currentSortActive).then()
   }
   getNewSortData(sort: Sort) {
     this.globalObjects.currentSortActive = sort.active;
     this.globalObjects.currentSortOrder = sort.direction;
     this.getDirectorsList(this.globalObjects.filterDirLastName, this.globalObjects.filterDirFirstName, 0,
-      this.globalObjects.currentSize, this.globalObjects.currentSortActive)
+      this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
   getFilteredData() {
     this.globalObjects.filterDirLastName = this.searchForm.get('lastName').value;
     this.globalObjects.filterDirFirstName = this.searchForm.get('firstName').value;
     this.getDirectorsList(this.globalObjects.filterDirLastName, this.globalObjects.filterDirFirstName, 0,
-      this.globalObjects.currentSize, this.globalObjects.currentSortActive)
+      this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
 }

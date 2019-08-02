@@ -1,8 +1,8 @@
-import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatPaginator, MatSort, PageEvent, Sort} from "@angular/material";
+import {FormControl, FormGroup} from "@angular/forms";
 import {GenreService} from "../genre.service";
 import {Genre} from "../genre";
 
@@ -58,17 +58,17 @@ export class GenresListComponent implements OnInit {
     this.globalObjects.currentPage = event.pageIndex;
     this.globalObjects.currentSize = event.pageSize;
     this.getGenresList(this.globalObjects.filterGenresGenreName, this.globalObjects.currentPage, this.globalObjects.currentSize,
-      this.globalObjects.currentSortActive)
+      this.globalObjects.currentSortActive).then()
   }
   getNewSortData(sort: Sort) {
     this.globalObjects.currentSortActive = sort.active;
     this.globalObjects.currentSortOrder = sort.direction;
     this.getGenresList(this.globalObjects.filterGenresGenreName,0,
-      this.globalObjects.currentSize, this.globalObjects.currentSortActive)
+      this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
   getFilteredData() {
     this.globalObjects.filterGenresGenreName = this.searchForm.get('genreName').value;
     this.getGenresList(this.globalObjects.filterGenresGenreName, 0,
-      this.globalObjects.currentSize, this.globalObjects.currentSortActive)
+      this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
 }

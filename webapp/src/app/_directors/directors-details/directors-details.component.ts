@@ -70,18 +70,19 @@ export class DirectorsDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        this.deleteDirectorById();
+        this.deleteDirectorById().then();
       }
     });
   }
 
   async deleteDirectorById() {
     await this.directorService.deleteDirectorById(this.director.id).then((receivedObject: any) => {
-        this.globalObjects.openInfoSnackBar('Reżyser został usunięty', this.director.firstName+' '+this.director.lastName);
+        this.globalObjects.openInfoSnackBar('Reżyser został usunięty',
+          this.director.firstName + ' ' + this.director.lastName);
         this.router.navigateByUrl('/directors/list')
       }
     ).catch(() => {
-      this.globalObjects.openErrorSnackBar('Nie można usunąć reżysera, jest powiązany z filmem !', '')
+      this.globalObjects.openErrorSnackBar('Nie można usunąć reżysera, jest powiązany z co najmniej jednym filmem !', '')
     });
   }
 
@@ -98,7 +99,7 @@ export class DirectorsDetailsComponent implements OnInit {
 
     //!*********************************************************
     //for new
-    if(this.isNew == true) {
+    if (this.isNew == true) {
       await this.directorService.addDirector(this.director).then((receivedObject: Director) => {
           this.director = receivedObject;
         }
@@ -118,21 +119,25 @@ export class DirectorsDetailsComponent implements OnInit {
     }
     //!*********************************************************
     //for both after success
-    this.router.navigateByUrl('/directors/list');
-    this.globalObjects.openInfoSnackBar('Reżyser został zapisany', this.director.firstName+' '+this.director.lastName)
+    await this.router.navigateByUrl('/directors/list');
+    this.globalObjects.openInfoSnackBar('Reżyser został zapisany',
+      this.director.firstName + ' ' + this.director.lastName)
   }
+
   async getCurrentDirectorsList() {
     //get size of directors table from server
-    await this.directorService.getDirectorsByParams('', '', 0, 10, 'lastName').then((receivedPage: ServerPage) => {
+    await this.directorService.getDirectorsByParams('', '', 0, 10, 'lastName')
+      .then((receivedPage: ServerPage) => {
         //set current page and size
         this.globalObjects.currentLength = receivedPage.totalPages;
       }
     ).catch(() => {
       this.globalObjects.openErrorSnackBar('Nie można pobrać listy reżyserów !', '');
     });
-    //get all users
-    await this.directorService.getDirectorsByParams('', '', 0, this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
-        //write to array of users
+    //get all directors
+    await this.directorService.getDirectorsByParams('', '', 0,
+      this.globalObjects.currentLength * 10, 'lastName').then((receivedPage: ServerPage) => {
+        //write to array of directors
         this.globalObjects.directorsInDb = receivedPage.content;
       }
     ).catch(() => {

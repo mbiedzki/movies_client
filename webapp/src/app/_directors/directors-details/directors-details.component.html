@@ -3,30 +3,39 @@
 
 <mat-card style="text-align: center;">
 
-  <mat-card-title>Dane reżysera</mat-card-title><br/><br/>
+  <mat-card-title>Dane reżysera</mat-card-title>
+  <br/><br/>
 
   <form [formGroup]="directorForm">
 
     <mat-form-field style="width: 30%">
       <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher" placeholder="Nazwisko">
       <mat-error *ngIf="directorForm.controls['lastName'].hasError('required')">Pole nie może być puste !</mat-error>
-      <mat-error *ngIf="directorForm.controls['lastName'].hasError('forbiddenLastName')&&(this.isNew)">To nazwisko nie może być użyte !</mat-error>
-    </mat-form-field><br/>
+      <mat-error *ngIf="directorForm.controls['lastName'].hasError('forbiddenLastName')&&(this.isNew)">To nazwisko nie
+        może być użyte !
+      </mat-error>
+    </mat-form-field>
+    <br/>
 
     <mat-form-field style="width: 30%">
       <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher" placeholder="Imię">
       <mat-error *ngIf="directorForm.controls['firstName'].hasError('required')">Pole nie może być puste !</mat-error>
-    </mat-form-field><br/>
+    </mat-form-field>
+    <br/>
 
     <mat-card-actions>
-      <button mat-raised-button [disabled]="(!directorForm.valid)&&(this.isNew)" (click)="saveDirector()" color="primary">
+      <button mat-raised-button [disabled]="(!directorForm.valid)&&(this.isNew)" (click)="saveDirector()"
+              color="primary">
         <span *ngIf="this.isNew">Dodaj</span>
         <span *ngIf="!this.isNew">Zapisz</span>
       </button>
       <span class="checkbox-spacer"></span>
-      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteDirectorConfirm()" color="accent">Usuń</button>
+      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteDirectorConfirm()"
+              color="accent">Usuń
+      </button>
       <span class="header-spacer"></span>
-      <button type="button" mat-raised-button [routerLink]="'/directors/list'" color="primary">Lista</button><br/><br/>
+      <button type="button" mat-raised-button [routerLink]="'/directors/list'" color="primary">Lista</button>
+      <br/><br/>
     </mat-card-actions>
 
   </form>

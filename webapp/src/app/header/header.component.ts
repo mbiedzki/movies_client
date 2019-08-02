@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GlobalObjects} from "../global-objects";
 import {UserService} from "../users/user.service";
 
@@ -10,7 +10,6 @@ import {UserService} from "../users/user.service";
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private globalObjects: GlobalObjects, private userService: UserService
   ) { }
 
   ngOnInit() {

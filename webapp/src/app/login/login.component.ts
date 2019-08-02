@@ -39,13 +39,13 @@ export class LoginComponent implements OnInit {
     //get user from server
     await this.userService.getUserByName(this.userName, this.userPassword).then((receivedUser: User) => {
       this.globalObjects.loggedUser = receivedUser;
-      //set password for logged user because serves does not send any password
+      //set password for logged user because serves does not send any password but we need it for basic auth requests
       this.globalObjects.loggedUser.password = this.userPassword;
       //mark if user is admin
       if(this.globalObjects.isUserAdmin(receivedUser)) {
         this.globalObjects.isAdmin = true;
       }
-      //clear login error if it was previously unsuccessful during login
+      //clear login error if previous login was unsuccessful
       this.globalObjects.loginError = false;
       this.router.navigateByUrl('main')
     }

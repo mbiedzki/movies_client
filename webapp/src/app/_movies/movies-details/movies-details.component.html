@@ -3,42 +3,58 @@
 
 <mat-card style="text-align: center;">
 
-  <mat-card-title>Dane filmu</mat-card-title><br/><br/>
+  <mat-card-title>Dane filmu</mat-card-title>
+  <br/><br/>
 
   <form [formGroup]="movieForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="title" [errorStateMatcher]="matcher" (change)=" this.globalObjects.currentTitle = this.movieForm.get('title').value;" placeholder="Tytuł">
+      <input matInput type="text" formControlName="title" [errorStateMatcher]="matcher"
+             (change)=" this.globalObjects.currentTitle = this.movieForm.get('title').value;" placeholder="Tytuł">
       <mat-error *ngIf="movieForm.controls['title'].hasError('required')">Pole nie może być puste !</mat-error>
-      <mat-error *ngIf="movieForm.controls['title'].hasError('forbiddenTitle')&&(this.isNew)">Ten tytuł nie może być użyty !</mat-error>
-    </mat-form-field><br/>
+      <mat-error *ngIf="movieForm.controls['title'].hasError('forbiddenTitle')&&(this.isNew)">Ten tytuł nie może być
+        użyty !
+      </mat-error>
+    </mat-form-field>
+    <br/>
 
     <mat-form-field style="width: 30%">
       <mat-label>Reżyser</mat-label>
-      <mat-select formControlName="director" (ngModelChange)="this.globalObjects.currentDirector = this.movieForm.get('director').value">
-        <mat-option *ngFor="let director of this.globalObjects.directorsInDb"  [value]="director.id" >{{director.lastName}} {{director.firstName}}</mat-option>
+      <mat-select formControlName="director"
+                  (ngModelChange)="this.globalObjects.currentDirector = this.movieForm.get('director').value">
+        <mat-option *ngFor="let director of this.globalObjects.directorsInDb"
+                    [value]="director.id">{{director.lastName}} {{director.firstName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="movieForm.controls['director'].hasError('required')">Pole nie może być puste !</mat-error>
-    </mat-form-field><br/>
+    </mat-form-field>
+    <br/>
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="year" [errorStateMatcher]="matcher" (change)=" this.globalObjects.currentYear = this.movieForm.get('year').value;" placeholder="Rok produkcji">
+      <input matInput type="text" formControlName="year" [errorStateMatcher]="matcher"
+             (change)=" this.globalObjects.currentYear = this.movieForm.get('year').value;" placeholder="Rok produkcji">
       <mat-error *ngIf="movieForm.controls['year'].hasError('required')">Pole nie może być puste !</mat-error>
       <mat-error *ngIf="movieForm.controls['year'].hasError('pattern')">4 cyfry !</mat-error>
-    </mat-form-field><br/>
+    </mat-form-field>
+    <br/>
 
     <mat-form-field style="width: 30%">
-    <mat-label>Gatunek</mat-label>
-    <mat-select formControlName="genres" multiple (ngModelChange)="this.globalObjects.currentGenres = this.movieForm.get('genres').value">
-      <mat-option *ngFor="let genre of this.globalObjects.genresInDb" [value]="genre.id">{{genre.genreName}}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="movieForm.controls['genres'].hasError('required')">Pole nie może być puste !</mat-error>
-    </mat-form-field><br/>
+      <mat-label>Gatunek</mat-label>
+      <mat-select formControlName="genres" multiple
+                  (ngModelChange)="this.globalObjects.currentGenres = this.movieForm.get('genres').value">
+        <mat-option *ngFor="let genre of this.globalObjects.genresInDb"
+                    [value]="genre.id">{{genre.genreName}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="movieForm.controls['genres'].hasError('required')">Pole nie może być puste !</mat-error>
+    </mat-form-field>
+    <br/>
 
     <mat-form-field style="width: 30%">
-      <input matInput type="textarea" formControlName="description" (change)="this.globalObjects.currentDescription = this.movieForm.get('description').value" [errorStateMatcher]="matcher" placeholder="Opis">
+      <input matInput type="textarea" formControlName="description"
+             (change)="this.globalObjects.currentDescription = this.movieForm.get('description').value"
+             [errorStateMatcher]="matcher" placeholder="Opis">
       <mat-error *ngIf="movieForm.controls['description'].hasError('required')">Pole nie może być puste !</mat-error>
-    </mat-form-field><br/>
+    </mat-form-field>
+    <br/>
 
     <mat-card-actions>
       <button mat-raised-button [disabled]="(!movieForm.valid)&&(this.isNew)" (click)="saveMovie()" color="primary">
@@ -46,9 +62,12 @@
         <span *ngIf="!this.isNew">Zapisz</span>
       </button>
       <span class="checkbox-spacer"></span>
-      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteMovieConfirm()" color="accent">Usuń</button>
+      <button *ngIf="!this.isNew && this.globalObjects.isAdmin" mat-raised-button (click)="deleteMovieConfirm()"
+              color="accent">Usuń
+      </button>
       <span class="header-spacer"></span>
-      <button type="button" mat-raised-button [routerLink]="'/movies/list'" color="primary">Lista</button><br/><br/>
+      <button type="button" mat-raised-button [routerLink]="'/movies/list'" color="primary">Lista</button>
+      <br/><br/>
     </mat-card-actions>
 
   </form>

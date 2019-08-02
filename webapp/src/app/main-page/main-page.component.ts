@@ -13,14 +13,12 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private globalObjects: GlobalObjects,
-    private directors: DirectorsDetailsComponent,
     private movies: MoviesDetailsComponent,
     private users: UsersDetailsComponent,
   ) {}
 
-//get lists for validators
+//get initial lists for all validators
   async ngOnInit() {
-    await this.directors.getCurrentDirectorsList();
     await this.movies.getCurrentDirectorsList();
     await this.movies.getCurrentGenresList();
     await this.movies.getCurrentMoviesList();

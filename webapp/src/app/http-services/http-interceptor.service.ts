@@ -3,10 +3,9 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
-  HttpErrorResponse, HttpClient
+  HttpErrorResponse
 } from '@angular/common/http';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {GlobalObjects} from "../global-objects";
@@ -23,7 +22,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           if (error.error instanceof ErrorEvent) {
             // client-side error
             errorMessage = `Błąd aplikacji: ${error.error.message}`;
-            this.router.navigateByUrl('login');
+            this.router.navigateByUrl('login').then();
             window.alert(errorMessage);
             return throwError(errorMessage);
           } else {
@@ -31,7 +30,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             errorCode = `${error.status}`;
             if(errorCode == '401') {
               this.globalObjects.accessError = true;
-              this.router.navigateByUrl('login');
+              this.router.navigateByUrl('login').then();
             }
             return throwError(errorCode);
           }
