@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private router: Router,
   ) {
   }

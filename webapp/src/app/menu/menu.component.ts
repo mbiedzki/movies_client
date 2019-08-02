@@ -10,7 +10,7 @@ import {UserService} from "../users/user.service";
 export class MenuComponent implements OnInit {
 
   constructor(
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private userService: UserService,
   ) { }
 

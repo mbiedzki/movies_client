@@ -32,7 +32,7 @@ export class MoviesListComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private router: Router,
   ) {
   }

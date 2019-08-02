@@ -10,7 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {
-  MatIcon, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
+  MatIconModule, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
   MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule, MatCheckboxModule,
   MatSnackBarModule, MatSelectModule, MatDialogModule,
 } from "@angular/material";
@@ -41,7 +41,7 @@ import {ForbiddenLastNameValidatorDirective} from './validators/forbidden-last-n
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    MatIcon,
+
     MainPageComponent,
     MenuComponent,
     UsersListComponent,
@@ -81,6 +81,7 @@ import {ForbiddenLastNameValidatorDirective} from './validators/forbidden-last-n
     MatCheckboxModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatIconModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -36,6 +36,6 @@ export class GenreService {
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
   constructor(
-    private http: HttpClient, private globalObjects: GlobalObjects, private router: Router
+    private http: HttpClient, public globalObjects: GlobalObjects, private router: Router
   ) { }
 }

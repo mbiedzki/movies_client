@@ -48,6 +48,6 @@ export class UserService {
     this.globalObjects.openInfoSnackBar('Użytkownik został wylogowany', '')
   }
   constructor(
-    private http: HttpClient, private globalObjects: GlobalObjects, private router: Router
+    private http: HttpClient, public globalObjects: GlobalObjects, private router: Router
   ) { }
 }

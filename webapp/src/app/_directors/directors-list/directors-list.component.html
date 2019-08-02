@@ -46,7 +46,7 @@
     [pageIndex]="this.globalObjects.currentPage"
     [pageSize]="this.globalObjects.currentSize"
     [pageSizeOptions]="[5, 10, 20]"
-    (page)="pageEvent = getNewPageData($event)"
+    (page)="getNewPageData($event)"
     showFirstLastButtons></mat-paginator>
 </div>
 

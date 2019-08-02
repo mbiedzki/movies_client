@@ -196,7 +196,7 @@ export class UsersDetailsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,

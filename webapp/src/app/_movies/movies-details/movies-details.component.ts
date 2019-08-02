@@ -221,7 +221,7 @@ export class MoviesDetailsComponent implements OnInit {
     private movieService: MovieService,
     private directorService: DirectorService,
     private genreService: GenreService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,

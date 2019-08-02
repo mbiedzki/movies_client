@@ -147,7 +147,7 @@ export class DirectorsDetailsComponent implements OnInit {
 
   constructor(
     private directorService: DirectorService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,

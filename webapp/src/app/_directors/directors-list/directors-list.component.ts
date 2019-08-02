@@ -29,7 +29,7 @@ export class DirectorsListComponent implements OnInit {
 
   constructor(
     private directorService: DirectorService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private router: Router,
   ) { }
 

@@ -8,7 +8,7 @@ import {Director} from "./director";
   providedIn: 'root'
 })
 export class DirectorService {
-  
+
   async getDirectorById(id: number): Promise<Director> {
     const url = `${this.globalObjects.directorByIdUrl}${id}`;
     return this.http.get<Director>(url, this.globalObjects.createHttpOptions(
@@ -35,6 +35,6 @@ export class DirectorService {
       this.globalObjects.loggedUser.name, this.globalObjects.loggedUser.password)).toPromise();
   }
   constructor(
-    private http: HttpClient, private globalObjects: GlobalObjects, private router: Router
+    private http: HttpClient, public globalObjects: GlobalObjects, private router: Router
   ) { }
 }

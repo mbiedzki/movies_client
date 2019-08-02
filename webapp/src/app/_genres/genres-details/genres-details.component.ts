@@ -109,7 +109,7 @@ export class GenresDetailsComponent implements OnInit {
 
   constructor(
     private genreService: GenreService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,

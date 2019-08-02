@@ -12,7 +12,7 @@ import {UsersDetailsComponent} from "../users/users-details/users-details.compon
 export class MainPageComponent implements OnInit {
 
   constructor(
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private movies: MoviesDetailsComponent,
     private users: UsersDetailsComponent,
   ) {}

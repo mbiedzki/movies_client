@@ -28,7 +28,7 @@ export class GenresListComponent implements OnInit {
 
   constructor(
     private genreService: GenreService,
-    private globalObjects: GlobalObjects,
+    public globalObjects: GlobalObjects,
     private router: Router,
   ) { }
 

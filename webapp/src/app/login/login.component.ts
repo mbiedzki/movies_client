@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     });
 
   constructor(
-    private userService: UserService, private globalObjects: GlobalObjects, private router: Router,
+    private userService: UserService, public globalObjects: GlobalObjects, private router: Router,
     private directorService: DirectorService,
   ) { }
 

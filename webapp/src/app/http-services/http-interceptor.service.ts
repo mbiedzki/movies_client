@@ -38,6 +38,6 @@ export class HttpInterceptorService implements HttpInterceptor {
       )
   }
   constructor(
-    private router: Router, private globalObjects: GlobalObjects,
+    private router: Router, public globalObjects: GlobalObjects,
   ) { }
 }
