@@ -20,6 +20,7 @@ export class UsersListComponent implements OnInit {
 
   public currentList: Array<User>;
   columnsToDisplay: string[] = ['id', 'name'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private userService: UserService,
@@ -29,6 +30,7 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.globalObjects.clearGlobalPaging();
+    this.paginator._intl.itemsPerPageLabel = 'Liczba elementów na stronie';
     this.getUsersList('', 0, 10)
   }
 

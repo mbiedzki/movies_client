@@ -1,7 +1,7 @@
 import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
-import {MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
 import {Movie} from "../movie";
 import {MovieService} from "../movie.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -28,6 +28,7 @@ export class MoviesListComponent implements OnInit {
   public currentList: Array<Movie>;
   columnsToDisplay: string[] = ['title', 'directorLastName', 'year', 'genres'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private movieService: MovieService,
@@ -37,6 +38,7 @@ export class MoviesListComponent implements OnInit {
 
   async ngOnInit() {
     this.globalObjects.clearGlobalPaging();
+    this.paginator._intl.itemsPerPageLabel = 'Liczba elementów na stronie';
     this.searchForm.get('title').setValue(this.globalObjects.filterTitle);
     this.searchForm.get('directorLastName').setValue(this.globalObjects.filterDirector);
     this.searchForm.get('year').setValue(this.globalObjects.filterYear);

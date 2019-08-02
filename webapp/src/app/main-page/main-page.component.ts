@@ -25,6 +25,5 @@ export class MainPageComponent implements OnInit {
     await this.movies.getCurrentGenresList();
     await this.movies.getCurrentMoviesList();
     await this.users.getCurrentUsersNames();
-    this.globalObjects.openInfoSnackBar(this.globalObjects.moviesInDb.length + ' filmów w bazie danych', '')
   }
 }

@@ -1,7 +1,7 @@
 import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
-import {MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DirectorService} from "../director.service";
 import {Director} from "../director";
@@ -25,6 +25,7 @@ export class DirectorsListComponent implements OnInit {
   public currentList: Array<Director>;
   columnsToDisplay: string[] = ['lastName', 'firstName'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private directorService: DirectorService,
@@ -34,6 +35,7 @@ export class DirectorsListComponent implements OnInit {
 
   async ngOnInit() {
     this.globalObjects.clearGlobalPaging();
+    this.paginator._intl.itemsPerPageLabel = 'Liczba elementów na stronie';
     this.searchForm.get('lastName').setValue(this.globalObjects.filterDirLastName);
     this.searchForm.get('firstName').setValue(this.globalObjects.filterDirFirstName);
     await this.getFilteredData();

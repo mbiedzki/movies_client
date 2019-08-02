@@ -1,7 +1,7 @@
 import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {GlobalObjects} from "../../global-objects";
 import{Router} from "@angular/router";
-import {MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from "@angular/material";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {GenreService} from "../genre.service";
 import {Genre} from "../genre";
@@ -24,6 +24,7 @@ export class GenresListComponent implements OnInit {
   public currentList: Array<Genre>;
   columnsToDisplay: string[] = ['genreName'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private genreService: GenreService,
@@ -33,6 +34,7 @@ export class GenresListComponent implements OnInit {
 
   async ngOnInit() {
     this.globalObjects.clearGlobalPaging();
+    this.paginator._intl.itemsPerPageLabel = 'Liczba elementów na stronie';
     this.searchForm.get('genreName').setValue(this.globalObjects.filterGenresGenreName);
     await this.getFilteredData();
   }
