@@ -64,4 +64,8 @@
   background-color:#FDFDFB;
 }
 
+.mat-row-link {
+  cursor: pointer;
+}
+
 

@@ -12,7 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   MatIconModule, MatInputModule, MatButtonModule, MatCardModule, _MatMenuDirectivesModule,
   MatMenuModule, MatListModule, MatSortModule, MatTableModule, MatPaginatorModule, MatCheckboxModule,
-  MatSnackBarModule, MatSelectModule, MatDialogModule,
+  MatSnackBarModule, MatSelectModule, MatDialogModule, MatTooltipModule,
 } from "@angular/material";
 
 import {LoginComponent} from './login/login.component';
@@ -82,6 +82,7 @@ import {ForbiddenLastNameValidatorDirective} from './validators/forbidden-last-n
     MatSnackBarModule,
     MatSelectModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

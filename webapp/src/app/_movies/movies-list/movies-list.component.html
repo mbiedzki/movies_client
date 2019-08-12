@@ -26,7 +26,7 @@
       <mat-card-actions>
         <div class="app-button-row">
           <button type="submit " mat-raised-button color="primary">Wyszukaj</button>
-          <br/><br/>
+          <button type="button" mat-raised-button (click)="this.clearFilter()" color="primary">Wyczyść filtr</button>
         </div>
       </mat-card-actions>
     </form>
@@ -59,7 +59,7 @@
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let movie; columns: columnsToDisplay" [routerLink]="'/movies/details/'+movie.id"
-             class="mat-row-link"></mat-row>
+             class="mat-row-link" matTooltip="Naciśnij aby edytować" [matTooltipShowDelay]="500"></mat-row>
 
   </mat-table>
 

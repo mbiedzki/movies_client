@@ -71,4 +71,10 @@ export class GenresListComponent implements OnInit {
     this.getGenresList(this.globalObjects.filterGenresGenreName, 0,
       this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
+  clearFilter() {
+    this.globalObjects.filterGenresGenreName = "";
+    this.searchForm.get('genreName').setValue(this.globalObjects.filterGenresGenreName);
+    this.getGenresList(this.globalObjects.filterGenresGenreName, this.globalObjects.currentPage, this.globalObjects.currentSize,
+      this.globalObjects.currentSortActive).then()
+  }
 }

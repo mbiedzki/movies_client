@@ -75,4 +75,12 @@ export class DirectorsListComponent implements OnInit {
     this.getDirectorsList(this.globalObjects.filterDirLastName, this.globalObjects.filterDirFirstName, 0,
       this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
   }
+  clearFilter() {
+    this.globalObjects.filterDirLastName = "";
+    this.globalObjects.filterDirFirstName = "";
+    this.searchForm.get('lastName').setValue(this.globalObjects.filterDirLastName);
+    this.searchForm.get('firstName').setValue(this.globalObjects.filterDirFirstName);
+    this.getDirectorsList(this.globalObjects.filterDirLastName, this.globalObjects.filterDirFirstName, 0,
+      this.globalObjects.currentSize, this.globalObjects.currentSortActive).then()
+  }
 }

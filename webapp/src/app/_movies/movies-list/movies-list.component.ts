@@ -87,4 +87,17 @@ export class MoviesListComponent implements OnInit {
       this.searchForm.get('year').value, this.globalObjects.filterGenreName, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
       this.globalObjects.currentSortOrder).then()
   }
+  clearFilter() {
+    this.globalObjects.filterTitle = "";
+    this.globalObjects.filterDirector = "";
+    this.globalObjects.filterYear = "";
+    this.globalObjects.filterGenreName = "";
+    this.searchForm.get('title').setValue(this.globalObjects.filterTitle);
+    this.searchForm.get('directorLastName').setValue(this.globalObjects.filterDirector);
+    this.searchForm.get('year').setValue(this.globalObjects.filterYear);
+    this.searchForm.get('genreName').setValue(this.globalObjects.filterGenreName);
+    this.getMoviesList(this.searchForm.get('title').value, this.searchForm.get('directorLastName').value,
+      this.searchForm.get('year').value, this.globalObjects.filterGenreName, 0, this.globalObjects.currentSize, this.globalObjects.currentSortActive,
+      this.globalObjects.currentSortOrder).then()
+  }
 }
