@@ -9,7 +9,7 @@
   <form [formGroup]="directorForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher" placeholder="Nazwisko">
+      <label><input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher" placeholder="Nazwisko"></label>
       <mat-error *ngIf="directorForm.controls['lastName'].hasError('required')">Pole nie może być puste !</mat-error>
       <mat-error *ngIf="directorForm.controls['lastName'].hasError('forbiddenLastName')&&(this.isNew)">To nazwisko nie
         może być użyte !
@@ -18,7 +18,7 @@
     <br/>
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher" placeholder="Imię">
+      <label><input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher" placeholder="Imię"></label>
       <mat-error *ngIf="directorForm.controls['firstName'].hasError('required')">Pole nie może być puste !</mat-error>
     </mat-form-field>
     <br/>

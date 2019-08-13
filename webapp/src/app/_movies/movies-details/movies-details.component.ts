@@ -78,7 +78,7 @@ export class MoviesDetailsComponent implements OnInit {
   }
 
   deleteMovieConfirm(): void {
-    const message = `Czy na pewno chesz usunąć ?`;
+    const message = `Czy na pewno chcesz usunąć ?`;
     const dialogData = new ConfirmDialogModel("Potwierdź", message);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: "400px",

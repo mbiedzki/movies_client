@@ -10,8 +10,8 @@
   <form [formGroup]="userForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher"
-             placeholder="Nazwa użytkownika">
+      <label><input matInput type="text" [readonly]="!isNew" formControlName="name" [errorStateMatcher]="matcher"
+             placeholder="Nazwa użytkownika"></label>
       <mat-error *ngIf="userForm.controls['name'].hasError('required')&&(this.isNew)">Pole nie może być puste !
       </mat-error>
       <mat-error *ngIf="userForm.controls['name'].hasError('forbiddenName')&&(this.isNew)">Ta nazwa nie może być użyta
@@ -21,8 +21,8 @@
     <br/><br/>
 
     <mat-form-field style="width: 30%">
-      <input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher"
-             placeholder="Nowe hasło">
+      <label><input matInput #password type="text" formControlName="password" [errorStateMatcher]="matcher"
+             placeholder="Nowe hasło"></label>
       <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(this.isNew)">Pole nie może być puste !
       </mat-error>
       <mat-error *ngIf="userForm.controls['password'].hasError('required')&&(!this.isNew)">Minimum 4 znaki lub 0 znaków

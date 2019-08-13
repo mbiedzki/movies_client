@@ -9,7 +9,7 @@
   <form [formGroup]="genreForm">
 
     <mat-form-field style="width: 30%">
-      <input matInput type="text" formControlName="genreName" [errorStateMatcher]="matcher" placeholder="Gatunek">
+      <label><input matInput type="text" formControlName="genreName" [errorStateMatcher]="matcher" placeholder="Gatunek"></label>
       <mat-error *ngIf="genreForm.controls['genreName'].hasError('required')">Pole nie może być puste !</mat-error>
     </mat-form-field>
     <br/>

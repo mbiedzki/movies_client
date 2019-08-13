@@ -5,21 +5,21 @@
     <form [formGroup]="searchForm" (ngSubmit)="getFilteredData()">
       <li class="mat-form-field--inline">
         <mat-form-field>
-          <input matInput type="text" formControlName="title" placeholder="Tytuł">
+          <label><input matInput type="text" formControlName="title" placeholder="Tytuł"></label>
           <mat-hint>podaj kilka znaków</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" formControlName="directorLastName" placeholder="Nazwisko reżysera">
+          <label><input matInput type="text" formControlName="directorLastName" placeholder="Nazwisko reżysera"></label>
           <mat-hint>podaj kilka znaków</mat-hint>
         </mat-form-field>
       </li>
       <li class="mat-form-field--inline">
         <mat-form-field>
-          <input matInput type="text" formControlName="year" placeholder="Rok">
+          <label><input matInput type="text" formControlName="year" placeholder="Rok"></label>
           <mat-hint>podaj kilka znaków</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" formControlName="genreName" placeholder="Gatunek">
+          <label><input matInput type="text" formControlName="genreName" placeholder="Gatunek"></label>
           <mat-hint>podaj kilka znaków</mat-hint>
         </mat-form-field>
       </li>
